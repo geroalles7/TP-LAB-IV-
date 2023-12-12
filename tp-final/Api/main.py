@@ -4,17 +4,22 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-# Configuración de CORS para permitir solicitudes desde el frontend en desarrollo
-origins = ["http://localhost:3000"]  # Ajusta según la URL de tu frontend React
+
+#Configuración de CORS para permitir solicitudes desde el frontend en desarrollo
+origins = ["http://localhost:5173"]  # Ajusta según la URL de tu frontend React
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_credentials=True,
+   allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
 
 class Laptop(BaseModel):
+    id: int
     marca: str
     modelo: str
     ram: int
@@ -27,8 +32,11 @@ class Laptop(BaseModel):
 
 laptops = [
     {"id": 1, "marca": "apple", "modelo": "Falcon", "ram": 16, "tipo_disco": "ssd", "marca_disco": "kingston", "modelo_disco": "454gfdg", "tamaño_disco": 250, "placa": "rtx 3050", "precio": 100000},
+    {"id": 2, "marca": "apple", "modelo": "Falcon", "ram": 16, "tipo_disco": "ssd", "marca_disco": "kingston", "modelo_disco": "454gfdg", "tamaño_disco": 250, "placa": "rtx 3050", "precio": 100000},
     # Agrega más laptops según sea necesario
 ]
+
+
 
 @app.get("/laptops", response_model=list[Laptop])
 def get_laptops():
@@ -60,3 +68,6 @@ def delete_laptop(laptop_id: int):
     global laptops
     laptops = [item for item in laptops if item["id"] != laptop_id]
     return {"message": "Laptop deleted successfully"}
+
+
+
