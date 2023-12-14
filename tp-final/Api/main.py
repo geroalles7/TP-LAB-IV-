@@ -23,11 +23,12 @@ port_id='5432'
 
 Base = declarative_base()
 
-class Usuario(Base):
-    __tablename__ = 'usuarios'
+class Discos_rigidos(Base):
+    __tablename__ = 'discos_rigidos'
     id = Column(Integer, primary_key=True)
-    nombre = Column(String(50))
-    apellido = Column(String(50))
+    marca = Column(String(50))
+    tipo = Column(String(50))
+    tamaño = Column(Integer)
 
 engine=create_engine("postgresql://postgres:Gero2002@localhost:5432/postgres", echo=True)
 Base.metadata.create_all(engine)
@@ -78,112 +79,103 @@ laptops = [
 
 
 
-@app.get("/laptops", response_model=None)   #ANDA
-def get_laptops():
+@app.get("/discos", response_model=None)   #ANDA
+def get_discos():
 
     try:
-        usuarios = session.query(Usuario).all()
-        return usuarios
+        discos = session.query(Discos_rigidos).all()
+        return discos
     finally:
         session.close()
 
 
-@app.get("/laptops/{usuario_id}",response_model=None )   #ANDA
-def obtener_usuario(usuario_id: int):
+@app.get("/discos/{discos_rigidos_id}",response_model=None )   #ANDA
+def obtener_disco(discos_rigidos_id: int):
     session = Session()
 
     try:
-        usuario = session.query(Usuario).filter(Usuario.id == usuario_id).first()
+        disco = session.query(Discos_rigidos).filter(Discos_rigidos.id == discos_rigidos_id).first()
 
-        if usuario is None:
-            raise HTTPException(status_code=404, detail="Usuario no encontrado")
+        if disco is None:
+            raise HTTPException(status_code=404, detail="Disco no encontrado")
 
-        return {"id": usuario.id, "nombre": usuario.nombre, "apellido": usuario.apellido}
+        return {"id": disco.id, "marca": disco.marca, "tipo": disco.tipo, "tamaño": disco.tamaño}
     finally:
         session.close()
 
 
 
 
-@app.post("/create", response_model=Laptop)
-def create_laptop(laptop: Laptop):
-    new_laptop = {"id": len(laptops) + 1, **laptop.dict()}
-    laptops.append(new_laptop)
-    return new_laptop
+class DiscoCrear(BaseModel):
+    marca:str
+    tipo: str
+    tamaño: int
 
-class UsuarioCrear(BaseModel):
-    nombre: str
-    apellido: str
-
-@app.post("/usuarios/")
-def crear_usuario(usuario: UsuarioCrear):
+@app.post("/discos/")
+def crear_disco(disco: DiscoCrear):
     session = Session()
 
     try:
-        nuevo_usuario = Usuario(nombre=usuario.nombre, apellido=usuario.apellido)
-        session.add(nuevo_usuario)
+        nuevo_disco = Discos_rigidos(marca=disco.marca, tipo=disco.tipo, tamaño=disco.tamaño )
+        session.add(nuevo_disco)
         session.commit()
 
-        return {"mensaje": "Usuario creado exitosamente", "id": nuevo_usuario.id}
+        return {"mensaje": "Disco creado exitosamente", "id": nuevo_disco.id}
     finally:
         session.close()
         
 
-@app.put("/update/{laptop_id}", response_model=Laptop)
-def update_laptop(laptop_id: int, updated_laptop: Laptop):
-    index = next((index for index, item in enumerate(laptops) if item["id"] == laptop_id), None)
-    if index is not None:
-        laptops[index] = {"id": laptop_id, **updated_laptop.dict()}
-        return laptops[index]
-    raise HTTPException(status_code=404, detail="Laptop not found")
 
-class UsuarioActualizar(BaseModel):
-    nombre: str
-    apellido: str
+class DiscoActualizar(BaseModel):
+    marca:str
+    tipo: str
+    tamaño: int
 
-@app.put("/usuarios/{usuario_id}")
-def actualizar_usuario(usuario_id: int, datos_actualizados: UsuarioActualizar):
+@app.put("/discos/{disco_id}")
+def actualizar_disco(disco_id: int, datos_actualizados: DiscoActualizar):
     session = Session()
 
     try:
         # Buscar el usuario por su ID
-        usuario = session.query(Usuario).filter(Usuario.id == usuario_id).first()
+        disco = session.query(Discos_rigidos).filter(Discos_rigidos.id == disco_id).first()
 
         # Verificar si el usuario existe
-        if usuario is None:
+        if disco is None:
             raise HTTPException(status_code=404, detail="Usuario no encontrado")
 
         # Actualizar los datos del usuario
-        usuario.nombre = datos_actualizados.nombre
-        usuario.apellido = datos_actualizados.apellido
+        disco.marca=datos_actualizados.marca
+        disco.tipo=datos_actualizados.tipo
+        disco.tamaño=datos_actualizados.tamaño
+      
 
         # Confirmar los cambios en la base de datos
         session.commit()
 
-        return {"mensaje": "Usuario actualizado exitosamente"}
+        return {"mensaje": "Disco actualizado exitosamente"}
     finally:
         session.close()
 
 
 
 
-@app.delete("/usuarios/{usuario_id}") #ANDA
-def borrar_usuario(usuario_id: int):
+@app.delete("/discos/{disco_id}") #ANDA
+def borrar_disco(disco_id: int):
     session = Session()
 
     try:
         # Buscar el usuario por su ID
-        usuario = session.query(Usuario).filter(Usuario.id == usuario_id).first()
+        disco = session.query(Discos_rigidos).filter(Discos_rigidos.id == disco_id).first()
 
         # Verificar si el usuario existe
-        if usuario is None:
+        if disco is None:
             raise HTTPException(status_code=404, detail="Usuario no encontrado")
 
         # Borrar el usuario de la base de datos
-        session.delete(usuario)
+        session.delete(disco)
         session.commit()
 
-        return {"mensaje": "Usuario borrado exitosamente"}
+        return {"mensaje": "Disco borrado exitosamente"}
     finally:
         session.close()
 
