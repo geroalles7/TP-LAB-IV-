@@ -203,7 +203,6 @@ def actualizar_laptop(laptop_id: int, datos_actualizados: LaptopActualizar):
         laptop.modelo=datos_actualizados.modelo
         laptop.ram=datos_actualizados.ram
         laptop.placa=datos_actualizados.placa
-        laptop.ram=datos_actualizados.ram
         laptop.id_disco=datos_actualizados.id_disco
         laptop.precio=datos_actualizados.precio
 
@@ -215,6 +214,26 @@ def actualizar_laptop(laptop_id: int, datos_actualizados: LaptopActualizar):
         return {"mensaje": "Laptop actualizado exitosamente"}
     finally:
         session.close()
+
+"""@app.put("/laptops/{laptop_id}")
+def actualizar_laptop(laptop_id: int, datos_actualizados: LaptopActualizar):
+    with Session() as session:
+        laptop = session.query(Laptops).filter(Laptops.id == laptop_id).first()
+
+        if laptop is None:
+            raise HTTPException(status_code=404, detail="Laptop no encontrado")
+
+        laptop.marca = datos_actualizados.marca
+        laptop.modelo = datos_actualizados.modelo
+        laptop.ram = datos_actualizados.ram
+        laptop.placa = datos_actualizados.placa
+        laptop.id_disco = datos_actualizados.id_disco
+        laptop.precio = datos_actualizados.precio
+
+        session.commit()
+
+    return {"mensaje": "Laptop actualizado exitosamente"}"""
+
 
 
 

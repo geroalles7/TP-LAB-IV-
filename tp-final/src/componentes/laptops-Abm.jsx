@@ -41,6 +41,7 @@ export default function AbmLaptops() {
     
     function editarLaptop(id){
         navigate(`${id}`);
+       
 
     }
     function verInfo(id){
