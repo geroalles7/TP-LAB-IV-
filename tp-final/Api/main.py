@@ -38,7 +38,7 @@ class Laptops(Base):
     precio=Column(Integer)
 
 
-engine = create_engine("postgresql://postgres:admin88@localhost:5432/postgres", echo=True)
+engine = create_engine("postgresql+psycopg2://postgres:admin88@localhost:5432/postgres", echo=True)
 Base.metadata.create_all(engine)
 
 Session = sessionmaker(bind=engine)
