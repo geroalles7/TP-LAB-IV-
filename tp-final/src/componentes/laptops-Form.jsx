@@ -6,8 +6,9 @@ import { agregarLaptop, getLaptop, editar} from './laptop-Service';
 export default function LaptopsForm() {
 
     const params = useParams();
-    const estadoInicial = {id:-1, marca:'apple', modelo:'Falcon', ram: 16, tipo_disco: 'ssd', marca_disco: 'kingston', modelo_disco: '454gfdg', tamaño_disco: 250, placa:'rtx 3050', precio: 100000};
+    const estadoInicial = {id:-1, marca:'apple', modelo:'Falcon', ram: 16, id_disco: 1, placa:'rtx 3050', precio: 100000};
     const [laptop, setLaptop] = useState(estadoInicial);
+    const[error, setError]=useState()
 
     useEffect(() => {
         if (params.id) {
@@ -88,23 +89,8 @@ export default function LaptopsForm() {
                         onChange={handleEditChange} ></input>
                 </div>
                 <div className="mb-3">
-                    <label className="form-label" htmlFor="tipo_disco">Tipo de Disco</label>
-                    <input className="form-control" type="text" id="tipo_disco" value={laptop.disco}
-                        onChange={handleEditChange} ></input>
-                </div>
-                <div className="mb-3">
-                    <label className="form-label" htmlFor="marca_disco">Marca del Disco</label>
-                    <input className="form-control" type="text" id="marca_disco" value={laptop.disco}
-                        onChange={handleEditChange} ></input>
-                </div>
-                <div className="mb-3">
-                    <label className="form-label" htmlFor="modelo_disco">Modelo del Disco</label>
-                    <input className="form-control" type="text" id="modelo_disco" value={laptop.disco}
-                        onChange={handleEditChange} ></input>
-                </div>
-                <div className="mb-3">
-                    <label className="form-label" htmlFor="tam_disco">Tamaño del Disco (Gb)</label>
-                    <input className="form-control" type="number" id="tam_disco" value={laptop.disco}
+                    <label className="form-label" htmlFor="id_disco">Numero de Disco</label>
+                    <input className="form-control" type="number" id="id_disco" value={laptop.id_disco}
                         onChange={handleEditChange} ></input>
                 </div>
                 <div className="mb-3">
@@ -123,11 +109,32 @@ export default function LaptopsForm() {
                     <button className="btn btn-secondary ms-1" onClick={cancelarCambios}>Cancelar</button>
                 </div>
             </div>
+            
 
 
 
         </>
         //los botones de aceptar y cancelar estan pero me los tapa el footer
+        /*<div className="mb-3">
+        <label className="form-label" htmlFor="tipo_disco">Tipo de Disco</label>
+        <input className="form-control" type="text" id="tipo_disco" value={laptop.disco}
+            onChange={handleEditChange} ></input>
+    </div>
+    <div className="mb-3">
+        <label className="form-label" htmlFor="marca_disco">Marca del Disco</label>
+        <input className="form-control" type="text" id="marca_disco" value={laptop.disco}
+            onChange={handleEditChange} ></input>
+    </div>
+    <div className="mb-3">
+        <label className="form-label" htmlFor="modelo_disco">Modelo del Disco</label>
+        <input className="form-control" type="text" id="modelo_disco" value={laptop.disco}
+            onChange={handleEditChange} ></input>
+    </div>
+    <div className="mb-3">
+        <label className="form-label" htmlFor="tam_disco">Tamaño del Disco (Gb)</label>
+        <input className="form-control" type="number" id="tam_disco" value={laptop.disco}
+            onChange={handleEditChange} ></input>
+    </div>*/
 
     )
 }

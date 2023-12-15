@@ -5,9 +5,9 @@ import axios from "axios";
     {id:1, marca:'apple', modelo:'Falcon', ram: 16, tipo_disco: 'ssd', marca_disco: 'kingston', modelo_disco: '454gfdg', tamaño_disco: 250, placa:'rtx 3050', precio: 100000},
     {id:2, marca:'apple', modelo:'Falcon', ram: 16, tipo_disco: 'ssd', marca_disco: 'kingston', modelo_disco: '454gfdg',tamaño_disco: 250, placa:'rtx 3050', precio: 100000},
     {id:3, marca:'apple', modelo:'Falcon', ram: 16, tipo_disco: 'ssd', marca_disco: 'kingston', modelo_disco: '454gfdg', tamaño_disco: 250, placa:'rtx 3050', precio: 100000}
-];
+]*/
 
-export function getLaptops(){
+/*export function getLaptops(){
     //llamar al backend para obtener la lista de autos
     return axios.get("http://localhost:3000/laptops");  //devuelve una promesa
 }
@@ -48,12 +48,12 @@ let cont=0;
 export function agregarLaptop(nuevaLaptop){
     //let nueva = laptops.reduce((max, actual)=>actual.id > max ? actual.id : max, 0)+1;
     cont=cont+1;
-    return axios.post("http://localhost:8000/create", {...nuevaLaptop, id:cont});  // Ajusta la URL y puerto de tu servidor FastAPI
+    return axios.post("http://localhost:8000/laptops/", {...nuevaLaptop, id:cont});  // Ajusta la URL y puerto de tu servidor FastAPI
 }
 
 export function borrar(id){
     cont=cont-1;
-    return axios.delete(`http://localhost:8000/delete/${id}`);  // Ajusta la URL y puerto de tu servidor FastAPI
+    return axios.delete(`http://localhost:8000/laptops/${id}`);  // Ajusta la URL y puerto de tu servidor FastAPI
 }
 
 export function getLaptop(id){
@@ -61,5 +61,5 @@ export function getLaptop(id){
 }
 
 export function editar(laptop){
-    return axios.put(`http://localhost:8000/update/${laptop.id}`, laptop);  // Ajusta la URL y puerto de tu servidor FastAPI
+    return axios.put(`http://localhost:8000/laptops/${laptop.id}`, laptop);  // Ajusta la URL y puerto de tu servidor FastAPI
 }

@@ -19,8 +19,6 @@ port_id='5432'
 
 
 
-
-
 Base = declarative_base()
 
 class Discos_rigidos(Base):
@@ -29,6 +27,18 @@ class Discos_rigidos(Base):
     marca = Column(String(50))
     tipo = Column(String(50))
     tamaño = Column(Integer)
+
+
+class Laptops(Base):
+    __tablename__ = 'laptops'
+    id = Column(Integer, primary_key=True)
+    marca = Column(String(50))
+    modelo = Column(String(50))
+    ram = Column(Integer)
+    placa=Column(String(50))
+    id_disco=Column(Integer)
+    precio=Column(Integer)
+
 
 engine=create_engine("postgresql://postgres:Gero2002@localhost:5432/postgres", echo=True)
 Base.metadata.create_all(engine)
@@ -59,24 +69,6 @@ app.add_middleware(
 )
 
 
-class Laptop(BaseModel):
-    id: int
-    marca: str
-    modelo: str
-    ram: int
-    tipo_disco: str
-    marca_disco: str
-    modelo_disco: str
-    tamaño_disco: int
-    placa: str
-    precio: int
-
-laptops = [
-    {"id": 1, "marca": "apple", "modelo": "Falcon", "ram": 16, "tipo_disco": "ssd", "marca_disco": "kingston", "modelo_disco": "454gfdg", "tamaño_disco": 250, "placa": "rtx 3050", "precio": 100000},
-    {"id": 2, "marca": "apple", "modelo": "Falcon", "ram": 16, "tipo_disco": "ssd", "marca_disco": "kingston", "modelo_disco": "454gfdg", "tamaño_disco": 250, "placa": "rtx 3050", "precio": 100000},
-    # Agrega más laptops según sea necesario
-]
-
 
 
 @app.get("/discos", response_model=None)   #ANDA
@@ -85,6 +77,15 @@ def get_discos():
     try:
         discos = session.query(Discos_rigidos).all()
         return discos
+    finally:
+        session.close()
+
+@app.get("/laptops", response_model=None)   #ANDA
+def get_laptops():
+
+    try:
+        laptops = session.query(Laptops).all()
+        return laptops
     finally:
         session.close()
 
@@ -103,6 +104,20 @@ def obtener_disco(discos_rigidos_id: int):
     finally:
         session.close()
 
+
+@app.get("/laptops/{laptops_id}",response_model=None )   #ANDA
+def obtener_laptop(laptops_id: int):
+    session = Session()
+
+    try:
+        laptop = session.query(Laptops).filter(Laptops.id == laptops_id).first()
+
+        if laptop is None:
+            raise HTTPException(status_code=404, detail="Laptop no encontrado")
+
+        return {"id": laptop.id, "marca": laptop.marca, "modelo": laptop.modelo, "Memoria Ram": laptop.ram, "Placa de video": laptop.placa, "Precio": laptop.precio}
+    finally:
+        session.close()
 
 
 
@@ -126,56 +141,101 @@ def crear_disco(disco: DiscoCrear):
         
 
 
-class DiscoActualizar(BaseModel):
+class LaptopCrear(BaseModel):
     marca:str
-    tipo: str
-    tamaño: int
+    modelo:str
+    ram :int
+    placa:str
+    id_disco: int
+    precio:int
 
-@app.put("/discos/{disco_id}")
-def actualizar_disco(disco_id: int, datos_actualizados: DiscoActualizar):
+@app.post("/laptops/")
+def crear_laptop(laptop:LaptopCrear):
     session = Session()
 
     try:
-        # Buscar el usuario por su ID
-        disco = session.query(Discos_rigidos).filter(Discos_rigidos.id == disco_id).first()
-
-        # Verificar si el usuario existe
-        if disco is None:
-            raise HTTPException(status_code=404, detail="Usuario no encontrado")
-
-        # Actualizar los datos del usuario
-        disco.marca=datos_actualizados.marca
-        disco.tipo=datos_actualizados.tipo
-        disco.tamaño=datos_actualizados.tamaño
-      
-
-        # Confirmar los cambios en la base de datos
-        session.commit()
-
-        return {"mensaje": "Disco actualizado exitosamente"}
+        
+        nuevo_laptop = Laptops(marca=laptop.marca, modelo=laptop.modelo, ram=laptop.ram,placa=laptop.placa,id_disco=laptop.id_disco, precio=laptop.precio)
+        discos = session.query(Discos_rigidos).count()
+       
+       
+        if(nuevo_laptop.id_disco <= discos):
+            session.add(nuevo_laptop)
+            session.commit()
+            return {"mensaje": "Disco valido y Laptop creado exitosamente"}
+            
+        else:
+            raise HTTPException(status_code=404, detail="Disco no encontrado y laptop no creada")
+    
     finally:
         session.close()
 
 
 
 
-@app.delete("/discos/{disco_id}") #ANDA
-def borrar_disco(disco_id: int):
+
+
+
+
+class LaptopActualizar(BaseModel):
+    marca:str
+    modelo :str
+    ram :int
+    placa:str
+    id_disco:int
+    precio:int
+
+
+@app.put("/laptops/{laptop_id}")
+def actualizar_laptop(laptop_id: int, datos_actualizados: LaptopActualizar):
     session = Session()
 
     try:
         # Buscar el usuario por su ID
-        disco = session.query(Discos_rigidos).filter(Discos_rigidos.id == disco_id).first()
+        laptop = session.query(Laptops).filter(Laptops.id == laptop_id).first()
 
         # Verificar si el usuario existe
-        if disco is None:
-            raise HTTPException(status_code=404, detail="Usuario no encontrado")
+        if laptop is None:
+            raise HTTPException(status_code=404, detail="Laptop no encontrado")
 
-        # Borrar el usuario de la base de datos
-        session.delete(disco)
+        # Actualizar los datos del usuario
+        laptop.marca=datos_actualizados.marca
+        laptop.modelo=datos_actualizados.modelo
+        laptop.ram=datos_actualizados.ram
+        laptop.placa=datos_actualizados.placa
+        laptop.ram=datos_actualizados.ram
+        laptop.id_disco=datos_actualizados.id_disco
+        laptop.precio=datos_actualizados.precio
+
+      
+
+        # Confirmar los cambios en la base de datos
         session.commit()
 
-        return {"mensaje": "Disco borrado exitosamente"}
+        return {"mensaje": "Laptop actualizado exitosamente"}
+    finally:
+        session.close()
+
+
+
+
+@app.delete("/laptops/{laptop_id}") #ANDA
+def borrar_laptop(laptop_id: int):
+    session = Session()
+
+    try:
+        # Buscar el usuario por su ID
+        laptop = session.query(Laptops).filter(Laptops.id == laptop_id).first()
+
+        # Verificar si el usuario existe
+        if laptop is None:
+            raise HTTPException(status_code=404, detail="Laptop no encontrado")
+
+        # Borrar el usuario de la base de datos
+        session.delete(laptop)
+        session.commit()
+
+        return {"mensaje": "Laptop borrado exitosamente"}
     finally:
         session.close()
 

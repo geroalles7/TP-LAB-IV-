@@ -9,6 +9,8 @@ import LaptopsForm from './componentes/laptops-Form.jsx'
 import About from './about.jsx'
 import Datos from './datos.jsx'
 import Home from './home.jsx'
+import LaptopsInfo from './componentes/laptop-info.jsx'
+
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -21,6 +23,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path='laptops' element={<AbmLaptops />} />
           <Route path='laptops/agregar' element={<LaptopsForm />} />
           <Route path='laptops/:id' element={<LaptopsForm />} />
+          <Route path='laptops/ver/:id' element={<LaptopsInfo />} />
         </Route>
 
       </Route>

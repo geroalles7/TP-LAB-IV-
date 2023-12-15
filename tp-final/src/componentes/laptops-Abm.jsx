@@ -13,6 +13,7 @@ export default function AbmLaptops() {
     const navigate=useNavigate(); //para ir con un boton a otra pagina
     const location=useLocation();
     
+    
     useEffect(()=>{
        refrescarDatos();
         //setDatos(getAutos()); //esto es sin el servidor
@@ -42,17 +43,21 @@ export default function AbmLaptops() {
         navigate(`${id}`);
 
     }
+    function verInfo(id){
+        navigate(`ver/${id}`);
+
+    }
 
     
     return (
         <>
             <h1>Laptops</h1>
-            {error ? <h1>Error: {error}</h1> : null /*aca trato el error*/} 
+            {error ? <h1>Error: {error}</h1> : null /*aca trato el error*/ /*<th>Ram</th><th>Tipo del Disco</th><th>Marca del Disco</th><th>Modelo del Disco</th><th>Tamaño del Disco</th><th>Placa</th><th>Precio</th>*/} 
             <div className="container">
                 <table className="table">
                     <thead> 
-                        <tr>
-                            <th>ID</th><th>Marca</th><th>Modelo</th><th>Ram</th><th>Tipo del Disco</th><th>Marca del Disco</th><th>Modelo del Disco</th><th>Tamaño del Disco</th><th>Placa</th><th>Precio</th>
+                        <tr> 
+                           <th>ID</th><th>Marca</th><th>Modelo</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,18 +67,20 @@ export default function AbmLaptops() {
                                 <td>{t.id} </td> 
                                 <td>{t.marca}</td>
                                 <td>{t.modelo}</td>
-                                <td>{t.ram}</td>
+                                
+                                <td>
+                                    <button className="btn btn-warning" onClick={()=> editarLaptop(t.id)}>Editar</button>
+                                    <button className="btn btn-danger ms-1" onClick={()=>borrarLaptop(t.id)}>Borrar</button>
+                                    <button className="btn btn-secondary ms-1" onClick={()=>verInfo(t.id)}>Ver</button>
+                                </td>
+                            </tr>
+                            /*<td>{t.ram}</td>
                                 <td>{t.tipo_disco}</td>
                                 <td>{t.marca_disco}</td>
                                 <td>{t.modelo_disco}</td>
                                 <td>{t.tamaño_disco}</td>
                                 <td>{t.placa}</td>
-                                <td>{t.precio}</td>
-                                <td>
-                                    <button className="btn btn-warning" onClick={()=> editarLaptop(t.id)}>Editar</button>
-                                    <button className="btn btn-danger ms-1" onClick={()=>borrarLaptop(t.id)}>Borrar</button>
-                                </td>
-                            </tr>
+                                <td>{t.precio}</td>*/
                         ))}
                     </tbody>
                 </table>
