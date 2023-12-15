@@ -70,7 +70,7 @@ app.add_middleware(
 
 
 @app.get("/discos", response_model=None)   #ANDA
-def get_discos():
+async def get_discos():
 
     try:
         discos = session.query(Discos_rigidos).all()
@@ -79,7 +79,7 @@ def get_discos():
         session.close()
 
 @app.get("/laptops", response_model=None)   #ANDA
-def get_laptops():
+async def get_laptops():
 
     try:
         laptops = session.query(Laptops).all()
@@ -89,7 +89,7 @@ def get_laptops():
 
 
 @app.get("/discos/{discos_rigidos_id}",response_model=None )   #ANDA
-def obtener_disco(discos_rigidos_id: int):
+async def obtener_disco(discos_rigidos_id: int):
     session = Session()
 
     try:
@@ -104,7 +104,7 @@ def obtener_disco(discos_rigidos_id: int):
 
 
 @app.get("/laptops/{laptops_id}",response_model=None )   #ANDA
-def obtener_laptop(laptops_id: int):
+async def obtener_laptop(laptops_id: int):
     session = Session()
 
     try:
@@ -125,7 +125,7 @@ class DiscoCrear(BaseModel):
     tamaño: int
 
 @app.post("/discos/")
-def crear_disco(disco: DiscoCrear):
+async def crear_disco(disco: DiscoCrear):
     session = Session()
 
     try:
@@ -148,7 +148,7 @@ class LaptopCrear(BaseModel):
     precio:int
 
 @app.post("/laptops/")
-def crear_laptop(laptop:LaptopCrear):
+async def crear_laptop(laptop:LaptopCrear):
     session = Session()
 
     try:
@@ -185,7 +185,7 @@ class LaptopActualizar(BaseModel):
 
 
 @app.put("/laptops/{laptop_id}")
-def actualizar_laptop(laptop_id: int, datos_actualizados: LaptopActualizar):
+async def actualizar_laptop(laptop_id: int, datos_actualizados: LaptopActualizar):
     session = Session()
 
     try:
@@ -237,7 +237,7 @@ def actualizar_laptop(laptop_id: int, datos_actualizados: LaptopActualizar):
 
 
 @app.delete("/laptops/{laptop_id}") #ANDA
-def borrar_laptop(laptop_id: int):
+async def borrar_laptop(laptop_id: int):
     session = Session()
 
     try:
