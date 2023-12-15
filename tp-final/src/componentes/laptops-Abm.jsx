@@ -58,16 +58,18 @@ export default function AbmLaptops() {
                 <table className="table">
                     <thead> 
                         <tr> 
-                           <th>ID</th><th>Marca</th><th>Modelo</th>
+                           <th>ID</th><th>Marca</th><th>Modelo</th><th>Precio</th>
                         </tr>
                     </thead>
                     <tbody>
 
-                        {datos.map((t) => (   //por cada elemento crea una linea en la lista. Esto va en el id de abajo <Link to={`${id}`} </Link>
+                        {datos.map((t) => (   //por cada elemento crea una linea en la lista. Esto va en el id de abajo 
                             <tr key={t.id}>
                                 <td>{t.id} </td> 
                                 <td>{t.marca}</td>
                                 <td>{t.modelo}</td>
+                                <td>{t.precio}</td>
+                                
                                 
                                 <td>
                                     <button className="btn btn-warning" onClick={()=> editarLaptop(t.id)}>Editar</button>
@@ -75,13 +77,12 @@ export default function AbmLaptops() {
                                     <button className="btn btn-secondary ms-1" onClick={()=>verInfo(t.id)}>Ver</button>
                                 </td>
                             </tr>
-                            /*<td>{t.ram}</td>
+                           /*<td>{t.ram}</td>
                                 <td>{t.tipo_disco}</td>
                                 <td>{t.marca_disco}</td>
                                 <td>{t.modelo_disco}</td>
                                 <td>{t.tamaño_disco}</td>
-                                <td>{t.placa}</td>
-                                <td>{t.precio}</td>*/
+                                <td>{t.placa}</td>*/
                         ))}
                     </tbody>
                 </table>
