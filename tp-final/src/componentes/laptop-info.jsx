@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { getLaptop } from "./laptop-Service";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { get_laptop } from "./laptop-Service";
 
 export default function LaptopsInfo() {
   const [laptop, setLaptop] = useState(null);
   const [error, setError] = useState(null);
   const { id } = useParams();
-  const navigate = useNavigate();
 
   useEffect(() => {
-    getLaptop(parseInt(id, 10))
+    get_laptop(parseInt(id, 10))
       .then((respuesta) => {
         if (respuesta.status === 200) {
           setLaptop(respuesta.data);
