@@ -3,8 +3,8 @@ import { Outlet, NavLink, Link } from "react-router-dom";
 function App() {
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
-        <div className="container-fluid">
+      <nav className="navbar navbar-expand-lg bg-primary-subtle navbar-dark border-bottom border-body">
+        <div className="container-fluid align-items-center p-4">
           <NavLink to="/" className="navbar-brand">
             Compra gamer
           </NavLink>

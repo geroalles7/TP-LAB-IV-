@@ -8,6 +8,16 @@ from sqlalchemy.ext.declarative import declarative_base
 
 app = FastAPI()
 
+#Configuración de CORS para permitir solicitudes desde el frontend en desarrollo
+origins = ["http://localhost:5173"]  # Ajusta según la URL de tu frontend React
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 #conexion a BD
 hostname='localhost',
 database='postgres',
@@ -60,16 +70,6 @@ session = Session()
 
 # Confirmar los cambios (realizar la inserción en la base de datos)
 #session.commit()
-
-#Configuración de CORS para permitir solicitudes desde el frontend en desarrollo
-origins = ["http://localhost:5173"]  # Ajusta según la URL de tu frontend React
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 
 

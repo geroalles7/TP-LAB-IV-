@@ -7,7 +7,7 @@ export function getLaptops() {
 let cont = 0;
 export function agregarLaptop(nuevaLaptop) {
   //let nueva = laptops.reduce((max, actual)=>actual.id > max ? actual.id : max, 0)+1;
-  cont = cont + 1;
+  cont++;
   return axios.post("http://localhost:8000/laptops/", {
     ...nuevaLaptop,
     id: cont,
@@ -15,7 +15,7 @@ export function agregarLaptop(nuevaLaptop) {
 }
 
 export function borrar(id) {
-  cont = cont - 1;
+  cont--;
   return axios.delete(`http://localhost:8000/laptops/${id}`); // Ajusta la URL y puerto de tu servidor FastAPI
 }
 
