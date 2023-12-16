@@ -23,8 +23,8 @@ function App() {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <NavLink to="datos" className="nav-link">
-                  Datos
+                <NavLink to="laptops" className="nav-link">
+                  Productos
                 </NavLink>
               </li>
               <li className="nav-item">
