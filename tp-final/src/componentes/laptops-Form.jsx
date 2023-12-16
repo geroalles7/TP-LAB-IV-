@@ -6,15 +6,15 @@ export default function LaptopsForm() {
   const params = useParams();
   const estadoInicial = {
     id: -1,
-    marca: "apple",
-    modelo: "Falcon",
+    marca: "Apple",
+    modelo: "Mac Book Pro",
     ram: 16,
     id_disco: 1,
-    placa: "rtx 3050",
-    precio: 100000,
+    placa: "RTX 1060",
+    precio: 988000,
   };
   const [laptop, setLaptop] = useState(estadoInicial);
-  const [error, setError] = useState();
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (params.id) {
@@ -57,13 +57,12 @@ export default function LaptopsForm() {
     navigate(-1);
   }
 
-  if (error !== null)
-    return <h2 className="text-center">Error: {error.message}</h2>;
+  if (error !== null) return <h2 className="text-center">Error: {error}</h2>;
   else
     return (
       <>
         <div className="container">
-          <h2>Datos del Laptop</h2>
+          <h2 className="text-center">Datos de la nueva laptop</h2>
           <div className="mb-3">
             <label className="form-label" htmlFor="descripcion">
               ID
@@ -165,26 +164,5 @@ export default function LaptopsForm() {
           </div>
         </div>
       </>
-      //los botones de aceptar y cancelar estan pero me los tapa el footer
-      /*<div className="mb-3">
-        <label className="form-label" htmlFor="tipo_disco">Tipo de Disco</label>
-        <input className="form-control" type="text" id="tipo_disco" value={laptop.disco}
-            onChange={handleEditChange} ></input>
-    </div>
-    <div className="mb-3">
-        <label className="form-label" htmlFor="marca_disco">Marca del Disco</label>
-        <input className="form-control" type="text" id="marca_disco" value={laptop.disco}
-            onChange={handleEditChange} ></input>
-    </div>
-    <div className="mb-3">
-        <label className="form-label" htmlFor="modelo_disco">Modelo del Disco</label>
-        <input className="form-control" type="text" id="modelo_disco" value={laptop.disco}
-            onChange={handleEditChange} ></input>
-    </div>
-    <div className="mb-3">
-        <label className="form-label" htmlFor="tam_disco">Tamaño del Disco (Gb)</label>
-        <input className="form-control" type="number" id="tam_disco" value={laptop.disco}
-            onChange={handleEditChange} ></input>
-    </div>*/
     );
 }
