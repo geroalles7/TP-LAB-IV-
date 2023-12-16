@@ -2,8 +2,9 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Column, Integer, String, Sequence
+from sqlalchemy.ext.declarative import declarative_base
 
 app = FastAPI()
 
@@ -13,9 +14,6 @@ database='postgres',
 username='postgres',
 pwd='admin88',
 port_id='5432'
-
-
-
 
 Base = declarative_base()
 
@@ -38,13 +36,21 @@ class Laptops(Base):
     precio=Column(Integer)
 
 
-engine = create_engine("postgresql+psycopg2://postgres:admin88@localhost:5432/postgres", echo=True)
+class Laptop(BaseModel):
+    id:int
+    marca:str
+    modelo:str
+    ram :int
+    placa:str
+    id_disco: int
+    precio:int
+
+
+engine=create_engine("postgresql://postgres:admin88@localhost:5432/postgres",echo=True)
 Base.metadata.create_all(engine)
 
 Session = sessionmaker(bind=engine)
 session = Session()
-
-
 
 # Crear una instancia del modelo con los datos a insertar
 #nuevo_usuario = Usuario(nombre='Gero', apellido='Alles')
@@ -55,22 +61,20 @@ session = Session()
 # Confirmar los cambios (realizar la inserción en la base de datos)
 #session.commit()
 
-
 #Configuración de CORS para permitir solicitudes desde el frontend en desarrollo
 origins = ["http://localhost:5173"]  # Ajusta según la URL de tu frontend React
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-   allow_credentials=True,
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 
 
-
 @app.get("/discos", response_model=None)   #ANDA
-async def get_discos():
+def get_discos():
 
     try:
         discos = session.query(Discos_rigidos).all()
@@ -78,8 +82,23 @@ async def get_discos():
     finally:
         session.close()
 
+@app.get("/discos/{id_disco}",response_model=None )   #ANDA
+def obtener_disco(id_disco: int):
+    session = Session()
+
+    try:
+        disco = session.query(Discos_rigidos).filter(Discos_rigidos.id == id_disco).first()
+
+        if disco is None:
+            raise HTTPException(status_code=404, detail="Disco no encontrado")
+
+        return {"id": disco.id, "marca": disco.marca, "tipo": disco.tipo, "tamanio": disco.tamanio}
+    finally:
+        session.close()
+
+
 @app.get("/laptops", response_model=None)   #ANDA
-async def get_laptops():
+def get_laptops():
 
     try:
         laptops = session.query(Laptops).all()
@@ -88,67 +107,34 @@ async def get_laptops():
         session.close()
 
 
-@app.get("/discos/{discos_rigidos_id}",response_model=None )   #ANDA
-async def obtener_disco(discos_rigidos_id: int):
-    session = Session()
-
-    try:
-        disco = session.query(Discos_rigidos).filter(Discos_rigidos.id == discos_rigidos_id).first()
-
-        if disco is None:
-            raise HTTPException(status_code=404, detail="Disco no encontrado")
-
-        return {"id": disco.id, "marca": disco.marca, "tipo": disco.tipo, "tamaño": disco.tamaño}
-    finally:
-        session.close()
-
-
 @app.get("/laptops/{laptops_id}",response_model=None )   #ANDA
-async def obtener_laptop(laptops_id: int):
+def obtener_laptop(laptops_id: int):
     session = Session()
 
     try:
         laptop = session.query(Laptops).filter(Laptops.id == laptops_id).first()
+        disco = session.query(Discos_rigidos).filter(Discos_rigidos.id == laptop.id_disco).first()
 
         if laptop is None:
             raise HTTPException(status_code=404, detail="Laptop no encontrado")
 
-        return {"id": laptop.id, "marca": laptop.marca, "modelo": laptop.modelo, "Memoria Ram": laptop.ram, "Placa de video": laptop.placa, "Precio": laptop.precio}
+        return {
+            "id": laptop.id, 
+            "marca": laptop.marca, 
+            "modelo": laptop.modelo, 
+            "ram": laptop.ram, 
+            "disco_id": laptop.id_disco,
+            "disco_marca": disco.marca,
+            "disco_tipo": disco.tipo,
+            "disco_tamaño":disco.tamaño, 
+            "placa": laptop.placa, 
+            "precio": laptop.precio
+        }
     finally:
         session.close()
-
-
-
-class DiscoCrear(BaseModel):
-    marca:str
-    tipo: str
-    tamaño: int
-
-@app.post("/discos/")
-async def crear_disco(disco: DiscoCrear):
-    session = Session()
-
-    try:
-        nuevo_disco = Discos_rigidos(marca=disco.marca, tipo=disco.tipo, tamaño=disco.tamaño )
-        session.add(nuevo_disco)
-        session.commit()
-
-        return {"mensaje": "Disco creado exitosamente", "id": nuevo_disco.id}
-    finally:
-        session.close()
-        
-
-
-class LaptopCrear(BaseModel):
-    marca:str
-    modelo:str
-    ram :int
-    placa:str
-    id_disco: int
-    precio:int
 
 @app.post("/laptops/")
-async def crear_laptop(laptop:LaptopCrear):
+def crear_laptop(laptop:Laptop):
     session = Session()
 
     try:
@@ -169,33 +155,19 @@ async def crear_laptop(laptop:LaptopCrear):
         session.close()
 
 
-
-
-
-
-
-
-class LaptopActualizar(BaseModel):
-    marca:str
-    modelo :str
-    ram :int
-    placa:str
-    id_disco:int
-    precio:int
-
-
 @app.put("/laptops/{laptop_id}")
-async def actualizar_laptop(laptop_id: int, datos_actualizados: LaptopActualizar):
+def actualizar_laptop(laptop_id:int, datos_actualizados: Laptop):
+    print("Datos recibidos en el servidor:", datos_actualizados.dict())
     session = Session()
 
     try:
-        # Buscar el usuario por su ID
+        # Buscar la laptop por su ID
         laptop = session.query(Laptops).filter(Laptops.id == laptop_id).first()
 
-        # Verificar si el usuario existe
+        # Verificar si la laptop existe
         if laptop is None:
             raise HTTPException(status_code=404, detail="Laptop no encontrado")
-
+        
         # Actualizar los datos del usuario
         laptop.marca=datos_actualizados.marca
         laptop.modelo=datos_actualizados.modelo
@@ -203,41 +175,18 @@ async def actualizar_laptop(laptop_id: int, datos_actualizados: LaptopActualizar
         laptop.placa=datos_actualizados.placa
         laptop.id_disco=datos_actualizados.id_disco
         laptop.precio=datos_actualizados.precio
-
-      
+       
 
         # Confirmar los cambios en la base de datos
         session.commit()
 
-        return {"mensaje": "Laptop actualizado exitosamente"}
+        return {"mensaje": "Laptop actualizado exitosamente", "Laptop": laptop.marca}
     finally:
         session.close()
 
-"""@app.put("/laptops/{laptop_id}")
-def actualizar_laptop(laptop_id: int, datos_actualizados: LaptopActualizar):
-    with Session() as session:
-        laptop = session.query(Laptops).filter(Laptops.id == laptop_id).first()
-
-        if laptop is None:
-            raise HTTPException(status_code=404, detail="Laptop no encontrado")
-
-        laptop.marca = datos_actualizados.marca
-        laptop.modelo = datos_actualizados.modelo
-        laptop.ram = datos_actualizados.ram
-        laptop.placa = datos_actualizados.placa
-        laptop.id_disco = datos_actualizados.id_disco
-        laptop.precio = datos_actualizados.precio
-
-        session.commit()
-
-    return {"mensaje": "Laptop actualizado exitosamente"}"""
-
-
-
-
 
 @app.delete("/laptops/{laptop_id}") #ANDA
-async def borrar_laptop(laptop_id: int):
+def borrar_laptop(laptop_id: int):
     session = Session()
 
     try:
@@ -255,8 +204,6 @@ async def borrar_laptop(laptop_id: int):
         return {"mensaje": "Laptop borrado exitosamente"}
     finally:
         session.close()
-
-
 
 
 if __name__ == "__main__":
