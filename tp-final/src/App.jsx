@@ -11,7 +11,7 @@ function App() {
             className="navbar-brand-logo me-3"
           />
           <NavLink to="/" className="navbar-brand h1">
-            LaptopLand
+            CyberWorld
           </NavLink>
           <button
             className="navbar-toggler"
@@ -36,45 +36,6 @@ function App() {
         </div>
       </nav>
 
-      {/*}
-      <nav className="navbar navbar-expand-lg navbar-dark bg-success border-bottom border-body">
-        <div className="container-fluid align-items-center p-4">
-          <img
-            src="src/assets/icon-laptop.png"
-            alt="logo"
-            className="navbar-brand-logo me-3"
-          />
-          <NavLink to="/" className="navbar-brand h1">
-            LaptopLand
-          </NavLink>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ms-auto">
-              <li className="nav-item">
-                <NavLink to="laptops" className="nav-link">
-                  Productos
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to="about" className="nav-link">
-                  Acerca de
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-  */}
       <Outlet />
 
       <footer className="fixed-bottom w-100 p-3 bg-light">
