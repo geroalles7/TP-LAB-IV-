@@ -62,7 +62,11 @@ export default function LaptopsForm() {
     return (
       <>
         <div className="container">
-          <h2 className="text-center">Datos de la nueva laptop</h2>
+          {laptop.id === -1 ? (
+            <h2 className="text-center">Datos de la nueva laptop</h2>
+          ) : (
+            <h2 className="text-center">Datos de la laptop actualmente</h2>
+          )}
           <div className="mb-3">
             <label className="form-label" htmlFor="descripcion">
               ID
@@ -76,7 +80,6 @@ export default function LaptopsForm() {
               disabled
             />
           </div>
-
           <div className="mb-3">
             <label className="form-label" htmlFor="marca">
               Marca
@@ -101,7 +104,6 @@ export default function LaptopsForm() {
               onChange={handleEditChange}
             ></input>
           </div>
-
           <div className="mb-3">
             <label className="form-label" htmlFor="ram">
               Ram (Gb)
@@ -150,7 +152,6 @@ export default function LaptopsForm() {
               onChange={handleEditChange}
             ></input>
           </div>
-
           <div className="mb-3 text-end">
             <button className="btn btn-primary me-1" onClick={aceptarCambios}>
               Aceptar
