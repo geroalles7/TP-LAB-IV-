@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route index={true} element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="laptops" element={<AbmLaptops />}>
-          <Route path="agregar" element={<LaptopsForm />} />
+          <Route path="laptops/agregar" element={<LaptopsForm />} />
           <Route path=":id" element={<LaptopsForm />} />
           <Route path="ver/:id" element={<LaptopsInfo />} />
         </Route>

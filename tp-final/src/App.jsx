@@ -3,9 +3,13 @@ import { Outlet, NavLink, Link } from "react-router-dom";
 function App() {
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-success navbar-dark border-bottom border-body">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-success border-bottom border-body">
         <div className="container-fluid align-items-center p-4">
-          <img src="src\assets\icon-laptop.png" alt="logo" />
+          <img
+            src="src/assets/icon-laptop.png"
+            alt="logo"
+            className="navbar-brand-logo me-3"
+          />
           <NavLink to="/" className="navbar-brand h1">
             LaptopLand
           </NavLink>
@@ -21,7 +25,7 @@ function App() {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav">
+            <ul className="navbar-nav ms-auto">
               <li className="nav-item">
                 <NavLink to="laptops" className="nav-link">
                   Productos
@@ -39,9 +43,9 @@ function App() {
 
       <Outlet />
 
-      <footer className="fixed-bottom w-100 mt-5 p-3 bg-light">
-        <div className="d-flex align-items-center justify-content-between">
-          <Link to="/" className="fs-5">
+      <footer className="fixed-bottom w-100 p-3 bg-light">
+        <div className="container d-flex align-items-center justify-content-between">
+          <Link to="/" className="fs-5 text-decoration-none">
             Volver al inicio
           </Link>
           <div className="fs-5">@Copyright 2023</div>
