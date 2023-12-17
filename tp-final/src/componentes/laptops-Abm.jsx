@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Outlet, useNavigate, Link } from "react-router-dom";
 import { getLaptops, borrar } from "./laptop-Service";
 import { HttpStatusCode } from "axios";
 import { Modal, Button } from "react-bootstrap";
@@ -53,6 +53,8 @@ export default function AbmLaptops() {
       </div>
     ) : (
       <>
+        <Outlet />
+
         <div className="container">
           <div className="row">
             <div className="col">
