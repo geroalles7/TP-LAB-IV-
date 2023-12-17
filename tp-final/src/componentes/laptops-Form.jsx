@@ -45,7 +45,7 @@ export default function LaptopsForm() {
         }
         else {
             try {
-                await editar(laptop.id,laptop);
+                await editar(laptop);
             }
             catch (ex) {
                 setError(ex);

@@ -5,6 +5,7 @@ export default function Datos(){
         <>
         <ul class="navbar-nav">
               <li class="nav-item"><NavLink to='laptops' className="nav-link">Laptops</NavLink></li>
+              <li class="nav-item"><NavLink to='discos' className="nav-link">Discos</NavLink></li>
              
             </ul>
 

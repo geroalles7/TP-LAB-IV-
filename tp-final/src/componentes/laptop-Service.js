@@ -4,6 +4,10 @@ export function getLaptops(){
     return axios.get("http://localhost:8000/laptops");  // Ajusta la URL y puerto de tu servidor FastAPI
 }
 
+export function get_Discos(){
+    return axios.get("http://localhost:8000/discos");  // Ajusta la URL y puerto de tu servidor FastAPI
+}
+
 let cont=0;
 export function agregarLaptop(nuevaLaptop){
     //let nueva = laptops.reduce((max, actual)=>actual.id > max ? actual.id : max, 0)+1;
@@ -20,9 +24,21 @@ export function getLaptop(id){
     return axios.get(`http://localhost:8000/laptops/${id}`);  // Ajusta la URL y puerto de tu servidor FastAPI
 }
 
-export function editar(id, laptop){
-    return axios.put(`http://localhost:8000/laptops/${id}`, laptop);  // Ajusta la URL y puerto de tu servidor FastAPI
-}
+/*export function editar(laptop){
+    return axios.put(`http://localhost:8000/laptops/${laptop.id}`, laptop);  // Ajusta la URL y puerto de tu servidor FastAPI
+}*/
+export function editar(laptop) {
+    console.log("Datos a enviar para editar:", laptop);
+    return axios.put(`http://localhost:8000/laptops/${laptop.id}`, laptop)
+      .then(response => {
+        console.log("Respuesta del servidor al editar:", response.data);
+        return response.data;
+      })
+      .catch(error => {
+        console.error("Error al editar la laptop:", error);
+        throw error;
+      });
+  }
 
 export function obtener_disco(id_disco){
     return axios.get(`http://localhost:8000/discos/${id_disco}`);

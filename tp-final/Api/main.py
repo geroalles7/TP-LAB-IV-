@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError
 from sqlalchemy import create_engine
 import pandas as pd
 from sqlalchemy.orm import sessionmaker
@@ -83,6 +83,9 @@ def get_discos():
     finally:
         session.close()
 
+
+
+
 @app.get("/discos/{id_disco}",response_model=None )   #ANDA
 def obtener_disco(id_disco: int):
     session = Session()
@@ -158,7 +161,7 @@ def crear_laptop(laptop:Laptop):
 
 @app.put("/laptops/{laptop_id}")
 def actualizar_laptop(laptop_id:int, datos_actualizados: Laptop):
-    print("Datos recibidos en el servidor:", datos_actualizados.dict())
+   
     session = Session()
 
     try:
@@ -184,6 +187,7 @@ def actualizar_laptop(laptop_id:int, datos_actualizados: Laptop):
         return {"mensaje": "Laptop actualizado exitosamente", "Laptop": laptop.marca}
     finally:
         session.close()
+
 
 
 @app.delete("/laptops/{laptop_id}") #ANDA
