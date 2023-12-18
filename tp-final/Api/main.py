@@ -75,7 +75,6 @@ session = Session()
 
 @app.get("/discos", response_model=None)   #ANDA
 def get_discos():
-
     try:
         discos = session.query(Discos_rigidos).all()
         return discos

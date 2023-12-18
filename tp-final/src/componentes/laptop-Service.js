@@ -30,3 +30,7 @@ export function edit_laptop(id, laptop) {
 export function get_disco(id_disco) {
   return axios.get(`http://localhost:8000/discos/${id_disco}`);
 }
+
+export function get_discos() {
+  return axios.get(`http://localhost:8000/discos`);
+}
