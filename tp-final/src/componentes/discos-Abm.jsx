@@ -53,7 +53,7 @@ export default function AbmDiscos() {
             <h1>Discos</h1>
             {error ? <h1>Error: {error}</h1> : null /*aca trato el error*/ /*<th>Ram</th><th>Tipo del Disco</th><th>Marca del Disco</th><th>Modelo del Disco</th><th>Tamaño del Disco</th><th>Placa</th><th>Precio</th>*/} 
             <div className="container">
-                <table className="table">
+                <table class="table table-dark">
                     <thead> 
                         <tr> 
                            <th>ID</th><th>Marca</th><th>Tipo</th><th>Tamaño</th>

@@ -25,7 +25,10 @@ export default function AbmLaptops() {
                 if (respuesta.status === 200) {
                     setTodosLosDatos(respuesta.data);
                 } else {
-                    alert(respuesta.statusText);
+                    //alert(respuesta.statusText);
+                    <div class="alert alert-danger" role="alert">
+                        A simple danger alert—check it out!
+                    </div>
                 }
             })
             .catch((reason) => setError(reason.message));
@@ -97,39 +100,84 @@ export default function AbmLaptops() {
     }
     return (
         <>
+
+
             <h1>Laptops</h1>
-            <div>
+            <div class="mb-1 ">
                 <input
                     type="text"
-                    placeholder="Buscar por marca o modelo"
+                    placeholder="Buscar marca o modelo"
                     value={filtro}
                     onChange={(e) => setFiltro(e.target.value)}
                 />
-                <button className="btn btn-primary ms-1" onClick={buscar}>
+                <button className="btn btn-primary ms-2" onClick={buscar}>
                     Buscar
                 </button>
                 <button className="btn btn-secondary ms-1" onClick={limpiarFiltro}>
                     Limpiar
                 </button>
+
+
             </div>
+            <figure class="figure">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
+                <figcaption class="figure-caption">A caption for the above image.</figcaption>
+            </figure>
+            <figure class="figure">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
+                <figcaption class="figure-caption">A caption for the above image.</figcaption>
+            </figure>
+            <figure class="figure">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
+                <figcaption class="figure-caption">A caption for the above image.</figcaption>
+            </figure>
+            <figure class="figure">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
+                <figcaption class="figure-caption">A caption for the above image.</figcaption>
+            </figure>
+            <figure class="figure">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
+                <figcaption class="figure-caption">A caption for the above image.</figcaption>
+            </figure>
+            <figure class="figure">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
+                <figcaption class="figure-caption">A caption for the above image.</figcaption>
+            </figure>
+            <figure class="figure">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
+                <figcaption class="figure-caption">A caption for the above image.</figcaption>
+            </figure>
+            <figure class="figure">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
+                <figcaption class="figure-caption">A caption for the above image.</figcaption>
+            </figure>
+            
             {error ? <h1>Error: {error}</h1> : null}
-            <div className="container">
-                <table className="table">
-                    {/* ... (código de la tabla) */}
+            <div class="container ">
+
+                <table class="table table-dark ">
+                    <thead>
+                        <tr>
+                            <th>ID</th><th>Marca</th><th>Modelo</th><th>Precio</th><th>Acciones</th>
+                        </tr>
+
+                    </thead>
                     <tbody>
+
                         {datos.map((t) => (
                             <tr key={t.id}>
                                 <td>{t.id} </td>
                                 <td>{t.marca}</td>
                                 <td>{t.modelo}</td>
                                 <td>{t.precio}</td>
-                                <td>
+                                <td >
                                     <button
                                         className="btn btn-warning"
                                         onClick={() => editarLaptop(t.id)}
                                     >
                                         Editar
                                     </button>
+
                                     <button
                                         className="btn btn-danger ms-1"
                                         onClick={() => borrarLaptop(t.id)}
@@ -142,12 +190,21 @@ export default function AbmLaptops() {
                                     >
                                         Ver
                                     </button>
+
                                 </td>
+
                             </tr>
+
                         ))}
                     </tbody>
+
                 </table>
+                <div class="align-items-center">
+                    <button className="btn btn-primary d-grid gap-2 col-6 mx-auto" onClick={() => navigate("agregar")}>Agregar</button>
+                </div>
+
             </div>
+
         </>
     )
 
