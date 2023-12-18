@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
 import { get_laptop } from "./laptop-Service";
 import { HttpStatusCode } from "axios";
 
@@ -7,6 +8,7 @@ export default function LaptopsInfo() {
   const [laptop, setLaptop] = useState(null);
   const [error, setError] = useState(null);
   const { id } = useParams();
+  const navigate = useNavigate();
   //para la imagen aleatoria
   const timestamp = new Date().getTime();
   const imageUrl = `https://source.unsplash.com/500x500/?laptop&t=${timestamp}`;
@@ -33,14 +35,14 @@ export default function LaptopsInfo() {
     <section className="py-5">
       <div className="container px-4 px-lg-5 my-5">
         <div className="row gx-4 gx-lg-5 align-items-center">
-          <div className="col-md-6">
+          <div className="col-md-5">
             <img
-              className="card-img-top mb-5 mb-md-0"
+              className="card-img-top mb-5 mb-md-1"
               src={imageUrl}
               alt="..."
             />
           </div>
-          <div className="col-md-6">
+          <div className="col-md-7">
             <div className="small mb-1">SKU: {laptop.id}</div>
             <h1 className="display-5 fw-bolder">
               {laptop.marca} &quot;{laptop.modelo}&quot;
@@ -53,7 +55,7 @@ export default function LaptopsInfo() {
                   maximumFractionDigits: 2,
                 })}
               </span>
-              <span className="text-danger large h3">
+              <span className="text-danger h3">
                 {" "}
                 ${" "}
                 {laptop.precio.toLocaleString("es-AR", {
@@ -77,6 +79,12 @@ export default function LaptopsInfo() {
                 <i className="bi-cart-fill me-1"></i>
                 Añadir al carrito
               </button>
+              <Button
+                className="btn btn-secondary justify-content-between ms-auto"
+                onClick={() => navigate(-1)}
+              >
+                Volver
+              </Button>
             </div>
             <div className="container">
               <div className="row">

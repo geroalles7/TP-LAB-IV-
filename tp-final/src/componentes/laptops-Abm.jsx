@@ -90,7 +90,11 @@ export default function AbmLaptops() {
                   <td>{t.marca}</td>
                   <td>{t.modelo}</td>
                   <td>
-                    <b>$ </b> {t.precio}
+                    ${" "}
+                    {t.precio.toLocaleString("es-AR", {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
                   </td>
                   <td>
                     <button

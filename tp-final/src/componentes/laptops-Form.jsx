@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { agregarLaptop, get_laptop, edit_laptop } from "./laptop-Service";
+import { Modal, Button } from "react-bootstrap";
 
 export default function LaptopsForm() {
   const params = useParams();
@@ -15,6 +16,7 @@ export default function LaptopsForm() {
   };
   const [laptop, setLaptop] = useState(estadoInicial);
   const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(true);
 
   useEffect(() => {
     if (params.id) {
@@ -30,15 +32,13 @@ export default function LaptopsForm() {
   const navigate = useNavigate();
 
   function handleEditChange(e) {
-    //para que se muestre cuando escribo en los input text
     setLaptop({ ...laptop, [e.target.id]: e.target.value });
   }
 
   async function aceptarCambios() {
-    //se fija si edita o si agrega algo nuevo
     if (laptop.id === -1) {
       try {
-        await agregarLaptop(laptop); //await es para que espere
+        await agregarLaptop(laptop);
       } catch (ex) {
         setError(ex);
       }
@@ -50,16 +50,46 @@ export default function LaptopsForm() {
       }
     }
 
-    navigate(-1); //vuelvo a donde esta la lista
+    navigate(-1);
   }
 
   function cancelarCambios() {
     navigate(-1);
   }
 
+  function handleClose() {
+    setShowModal(false);
+    navigate(-1);
+  }
+
   if (error !== null) return <h2 className="text-center">Error: {error}</h2>;
   else
     return (
+      <Modal show={showModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            {laptop.id === -1
+              ? "Datos de la nueva laptop"
+              : "Datos de la laptop actualmente"}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div>{/* ... Resto del contenido del formulario ... */}</div>
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="btn btn-primary me-1" onClick={aceptarCambios}>
+            Aceptar
+          </button>
+          <button className="btn btn-secondary ms-1" onClick={cancelarCambios}>
+            Cancelar
+          </button>
+        </Modal.Footer>
+      </Modal>
+    );
+}
+
+/* Vieja forma de agregar - editar
+return (
       <>
         <div className="container">
           {laptop.id === -1 ? (
@@ -166,4 +196,5 @@ export default function LaptopsForm() {
         </div>
       </>
     );
-}
+
+*/
