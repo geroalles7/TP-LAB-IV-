@@ -33,22 +33,7 @@ export default function AbmLaptops() {
             })
             .catch((reason) => setError(reason.message));
     }, []);
-    //setDatos(getAutos()); //esto es sin el servidor
-    //se ejecuta una sola vez al principio
-
-    /*function refrescarDatos(){
-    getLaptops()
-    .then((respuesta)=>{  //respuesta es la que traigo del servidor db.json
-        if(respuesta.status===200)
-        {
-            setDatos(respuesta.data);
-        }
-        else{
-            alert(respuesta.statusText);
-        }
-    })
-    .catch(reason=>setError(reason.messagge));   //aca trato el error
-    }*/
+    
     function refrescarDatos() {
         getLaptops()
             .then((respuesta) => {
@@ -76,7 +61,7 @@ export default function AbmLaptops() {
 
     async function borrarLaptop(id) {
         await borrar(parseInt(id, 10));
-        //navigate(location.pathname); //navega a la ruta actual para redibujar la tabla 
+      
         refrescarDatos();
     }
 

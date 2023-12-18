@@ -6,7 +6,7 @@ import { agregarLaptop, getLaptop, editar} from './laptop-Service';
 export default function LaptopsForm() {
 
     const params = useParams();
-    const estadoInicial = {id:-1, marca:'apple', modelo:'Falcon', ram: 16, id_disco: 1, placa:'rtx 3050', precio: 100000};
+    const estadoInicial = {id:-1, marca:'', modelo:'', ram: null, id_disco: null, placa:'', precio: null};
     const [laptop, setLaptop] = useState(estadoInicial);
     const[error, setError]=useState()
 
@@ -33,7 +33,7 @@ export default function LaptopsForm() {
 
     }
 
-    async function aceptarCambios() {  //se fija si edita o si agrega algo nuevo 
+    /*async function aceptarCambios() {  //se fija si edita o si agrega algo nuevo 
         if (laptop.id === -1) {
             try {
                 await agregarLaptop(laptop); //await es para que espere 
@@ -54,6 +54,22 @@ export default function LaptopsForm() {
             
         }
 
+        navigate(-1); //vuelvo a donde esta la lista 
+    }*/
+    async function aceptarCambios() {
+        if (laptop.id === -1) {
+            try {
+                await agregarLaptop(laptop);
+            } catch (ex) {
+                setError(ex);
+            }
+        } else {
+            try {
+                await editar(laptop);
+            } catch (ex) {
+                setError(ex);
+            }
+        }
         navigate(-1); //vuelvo a donde esta la lista 
     }
 

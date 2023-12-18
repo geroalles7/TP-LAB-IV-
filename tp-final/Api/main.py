@@ -137,7 +137,7 @@ def obtener_laptop(laptops_id: int):
     finally:
         session.close()
 
-@app.post("/laptops/")
+@app.post("/laptops/")  
 def crear_laptop(laptop:Laptop):
     session = Session()
 
@@ -160,7 +160,7 @@ def crear_laptop(laptop:Laptop):
 
 
 @app.put("/laptops/{laptop_id}")
-def actualizar_laptop(laptop_id:int, datos_actualizados: Laptop):
+def editar_laptop(laptop_id:int, datos_actualizados: Laptop):
    
     session = Session()
 
@@ -179,6 +179,7 @@ def actualizar_laptop(laptop_id:int, datos_actualizados: Laptop):
         laptop.placa=datos_actualizados.placa
         laptop.id_disco=datos_actualizados.id_disco
         laptop.precio=datos_actualizados.precio
+       
        
 
         # Confirmar los cambios en la base de datos
@@ -209,3 +210,8 @@ def borrar_laptop(laptop_id: int):
         return {"mensaje": "Laptop borrado exitosamente"}
     finally:
         session.close()
+
+
+
+
+
