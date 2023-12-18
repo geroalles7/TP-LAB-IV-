@@ -68,13 +68,85 @@ export default function LaptopsForm() {
       <Modal show={showModal} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>
-            {laptop.id === -1
-              ? "Datos de la nueva laptop"
-              : "Datos de la laptop actualmente"}
+            {laptop.id === -1 ? "Nueva laptop" : "Editar laptop"} ID:{" "}
+            {laptop.id}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div>{/* ... Resto del contenido del formulario ... */}</div>
+          <div>
+            <div className="mb-3">
+              <label className="form-label" htmlFor="marca">
+                Marca
+              </label>
+              <input
+                className="form-control"
+                type="text"
+                id="marca"
+                value={laptop.marca}
+                onChange={handleEditChange}
+              ></input>
+            </div>
+            <div className="mb-3">
+              <label className="form-label" htmlFor="modelo">
+                Modelo
+              </label>
+              <input
+                className="form-control"
+                type="text"
+                id="modelo"
+                value={laptop.modelo}
+                onChange={handleEditChange}
+              ></input>
+            </div>
+            <div className="mb-3">
+              <label className="form-label" htmlFor="ram">
+                Ram (Gb)
+              </label>
+              <input
+                className="form-control"
+                type="number"
+                id="ram"
+                value={laptop.ram}
+                onChange={handleEditChange}
+              ></input>
+            </div>
+            <div className="mb-3">
+              <label className="form-label" htmlFor="id_disco">
+                Numero de Disco
+              </label>
+              <input
+                className="form-control"
+                type="number"
+                id="id_disco"
+                value={laptop.id_disco}
+                onChange={handleEditChange}
+              ></input>
+            </div>
+            <div className="mb-3">
+              <label className="form-label" htmlFor="placa">
+                Placa de Video
+              </label>
+              <input
+                className="form-control"
+                type="text"
+                id="placa"
+                value={laptop.placa}
+                onChange={handleEditChange}
+              ></input>
+            </div>
+            <div className="mb-3">
+              <label className="form-label" htmlFor="precio">
+                Precio
+              </label>
+              <input
+                className="form-control"
+                type="number"
+                id="precio"
+                value={laptop.precio}
+                onChange={handleEditChange}
+              ></input>
+            </div>
+          </div>
         </Modal.Body>
         <Modal.Footer>
           <button className="btn btn-primary me-1" onClick={aceptarCambios}>
