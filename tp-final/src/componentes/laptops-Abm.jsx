@@ -18,14 +18,14 @@ export default function AbmLaptops() {
 
 
     useEffect(() => {
-        refrescarDatos();
-        // Guardar todos los datos originales al cargar el componente
+        refrescarDatos(); // Guardar todos los datos originales al cargar el componente
+        
         getLaptops()
             .then((respuesta) => {
                 if (respuesta.status === 200) {
                     setTodosLosDatos(respuesta.data);
                 } else {
-                    //alert(respuesta.statusText);
+                    
                     <div class="alert alert-danger" role="alert">
                         A simple danger alert—check it out!
                     </div>
@@ -197,73 +197,3 @@ export default function AbmLaptops() {
     )
 
 }
-/* {datos.map((t) => (   //por cada elemento crea una linea en la lista. Esto va en el id de abajo
-                            <tr key={t.id}>
-                                <td>{t.id} </td>
-                                <td>{t.marca}</td>
-                                <td>{t.modelo}</td>
-                                <td>{t.precio}</td>
-
-
-                                <td>
-                                    <button className="btn btn-warning" onClick={()=> editarLaptop(t.id)}>Editar</button>
-                                    <button className="btn btn-danger ms-1" onClick={()=>borrarLaptop(t.id)}>Borrar</button>
-                                    <button className="btn btn-secondary ms-1" onClick={()=>verInfo(t.id)}>Ver</button>
-                                </td>
-                            </tr>
-
-                        ))}*/
-
-//dibujo la tabla que traigo desde autos-service
-
-
-/*<h1>Laptops</h1>
-            <input
-                type="text"
-                placeholder="Buscar por marca o modelo"
-                value={filtro}
-                onChange={(e) => setFiltro(e.target.value)}
-            />
-            <button onClick={() => setFiltro("")}>Limpiar</button>
-            {error ? <h1>Error: {error}</h1> : null /*aca trato el error*/ /*<th>Ram</th><th>Tipo del Disco</th><th>Marca del Disco</th><th>Modelo del Disco</th><th>Tamaño del Disco</th><th>Placa</th><th>Precio</th>}
-<div className="container">
-<table className="table">
-<thead>
-<tr>
-<th>ID</th><th>Marca</th><th>Modelo</th><th>Precio</th>
-</tr>
-</thead>
-<tbody>
-{datos.map((t) => (
-<tr key={t.id}>
-<td>{t.id} </td>
-<td>{t.marca}</td>
-<td>{t.modelo}</td>
-<td>{t.precio}</td>
-<td>
-<button className="btn btn-warning" onClick={() => editarLaptop(t.id)}>
-Editar
-</button>
-<button
-className="btn btn-danger ms-1"
-onClick={() => borrarLaptop(t.id)}
->
-Borrar
-</button>
-<button
-className="btn btn-secondary ms-1"
-onClick={() => verInfo(t.id)}
->
-Ver
-</button>
-</td>
-</tr>
-))}
-
-
-</tbody>
-</table>
-<div>
-<button className="btn btn-primary" onClick={() => navigate("agregar")}>Agregar</button>
-</div>
-</div>*/

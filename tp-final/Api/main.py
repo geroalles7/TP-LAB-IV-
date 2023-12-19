@@ -53,17 +53,10 @@ Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
-# Crear una instancia del modelo con los datos a insertar
-#nuevo_usuario = Usuario(nombre='Gero', apellido='Alles')
 
-# Agregar la instancia a la sesión
-#session.add(nuevo_usuario)
-
-# Confirmar los cambios (realizar la inserción en la base de datos)
-#session.commit()
 
 #Configuración de CORS para permitir solicitudes desde el frontend en desarrollo
-origins = ["http://localhost:5173"]  # Ajusta según la URL de tu frontend React
+origins = ["http://localhost:5173"]  
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -74,7 +67,7 @@ app.add_middleware(
 
 
 
-@app.get("/discos", response_model=None)   #ANDA
+@app.get("/discos", response_model=None)   
 def get_discos():
 
     try:
@@ -86,7 +79,7 @@ def get_discos():
 
 
 
-@app.get("/discos/{id_disco}",response_model=None )   #ANDA
+@app.get("/discos/{id_disco}",response_model=None )   
 def obtener_disco(id_disco: int):
     session = Session()
 
@@ -101,7 +94,7 @@ def obtener_disco(id_disco: int):
         session.close()
 
 
-@app.get("/laptops", response_model=None)   #ANDA
+@app.get("/laptops", response_model=None)   
 def get_laptops():
 
     try:
@@ -111,7 +104,7 @@ def get_laptops():
         session.close()
 
 
-@app.get("/laptops/{laptops_id}",response_model=None )   #ANDA
+@app.get("/laptops/{laptops_id}",response_model=None )  
 def obtener_laptop(laptops_id: int):
     session = Session()
 
@@ -168,15 +161,15 @@ def editar_laptop(datos_actualizados: Laptop, laptop_id:int):
     session = Session()
     print(f"Datos recibidos en el servidor:", datos_actualizados)
     try:
-        # Buscar la laptop por su ID
+        #Busco la laptop por su ID
         laptop = session.query(Laptops).filter(Laptops.id == laptop_id).first()
-        #laptop = session.query(Laptops).update(laptop.id)
+       
 
-        # Verificar si la laptop existe
+        #Verifico si la laptop existe
         if laptop is None:
             raise HTTPException(status_code=404, detail="Laptop no encontrado")
         
-        # Actualizar los datos del usuario
+        #Actualizar los datos del laptop
         laptop.id=laptop_id
         laptop.marca=datos_actualizados.marca
         laptop.modelo=datos_actualizados.modelo
@@ -186,10 +179,8 @@ def editar_laptop(datos_actualizados: Laptop, laptop_id:int):
         laptop.precio=datos_actualizados.precio
         
        
-        
-
-
-        # Confirmar los cambios en la base de datos
+    
+        #Confirmo los cambios en la base de datos
         session.commit()
 
         return {"mensaje": "Laptop actualizado exitosamente", "Laptop": laptop.marca}
@@ -198,19 +189,19 @@ def editar_laptop(datos_actualizados: Laptop, laptop_id:int):
 
 
 
-@app.delete("/laptops/{laptop_id}") #ANDA
+@app.delete("/laptops/{laptop_id}") 
 def borrar_laptop(laptop_id: int):
     session = Session()
 
     try:
-        # Buscar el usuario por su ID
+       
         laptop = session.query(Laptops).filter(Laptops.id == laptop_id).first()
 
-        # Verificar si el usuario existe
+       
         if laptop is None:
             raise HTTPException(status_code=404, detail="Laptop no encontrado")
 
-        # Borrar el usuario de la base de datos
+        #Borro el usuario de la base de datos
         session.delete(laptop)
         session.commit()
 

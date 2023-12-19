@@ -45,19 +45,3 @@ function App() {
 }
 
 export default App
-/*<nav className="navbar navbar-expand-lg" >
-        <div className="container-fluid p-3 mb-2 bg-info text-dark">
-          <NavLink to="/" className="navbar-brand">Compra gamer</NavLink>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse " id="navbarNav">
-            <ul className="navbar-nav">
-
-              <li class="nav-item"><NavLink to='datos' className="nav-link">Datos</NavLink></li>
-              <li className="nav-item"><NavLink to='about' className="nav-link">Acerca de</NavLink></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-*/

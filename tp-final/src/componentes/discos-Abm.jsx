@@ -13,13 +13,13 @@ export default function AbmDiscos() {
     
     useEffect(()=>{
         refrescarDatos();
-         //setDatos(getAutos()); //esto es sin el servidor
+         
      },[]); //se ejecuta una sola vez al principio
  
 
     function refrescarDatos(){
         get_Discos()
-        .then((respuesta)=>{  //respuesta es la que traigo del servidor db.json
+        .then((respuesta)=>{  //respuesta es la que traigo de la BD
             if(respuesta.status===200)
             {
                 setDatos(respuesta.data);
@@ -31,17 +31,7 @@ export default function AbmDiscos() {
         .catch(reason=>setError(reason.messagge));   //aca trato el error
     }
    
-    /*async function borrarLaptop(id){
-        await borrar(parseInt(id,10));
-        //navigate(location.pathname); //navega a la ruta actual para redibujar la tabla 
-        refrescarDatos();
-    }
-    
-    function editarLaptop(id){
-        navigate(`${id}`);
-       
-
-    }*/
+   
     function verInfo(id){
         navigate(`ver/${id}`);
 
@@ -51,7 +41,7 @@ export default function AbmDiscos() {
     return (
         <>
             <h1>Discos</h1>
-            {error ? <h1>Error: {error}</h1> : null /*aca trato el error*/ /*<th>Ram</th><th>Tipo del Disco</th><th>Marca del Disco</th><th>Modelo del Disco</th><th>Tamaño del Disco</th><th>Placa</th><th>Precio</th>*/} 
+            {error ? <h1>Error: {error}</h1> : null /*aca trato el error*/} 
             <div className="container">
                 <table class="table table-dark">
                     <thead> 
@@ -61,8 +51,8 @@ export default function AbmDiscos() {
                     </thead>
                     <tbody>
 
-                        {datos.map((t) => (   //por cada elemento crea una linea en la lista. Esto va en el id de abajo 
-                            <tr key={t.id}>
+                        {datos.map((t) => (   //por cada elemento crea una linea en la lista. Esto va en el id de abajo  //dibujo la tabla que traigo desde autos-service
+                            <tr key={t.id}>   
                                 <td>{t.id} </td> 
                                 <td>{t.marca}</td>
                                 <td>{t.tipo}</td>
@@ -83,4 +73,4 @@ export default function AbmDiscos() {
 }
 
 
-//dibujo la tabla que traigo desde autos-service
+
