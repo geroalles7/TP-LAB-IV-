@@ -1,4 +1,4 @@
-import { Container, Row, Col, Button, Jumbotron } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
 export default function Home() {
   const jumbotronStyle = {
@@ -6,12 +6,15 @@ export default function Home() {
       "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://source.unsplash.com/1920x1080/?laptop')",
     backgroundSize: "cover",
     color: "white",
+    minHeight: "100vh", // Altura mínima de la ventana visible
+    display: "flex",
+    alignItems: "center",
   };
 
   return (
-    <Jumbotron fluid style={jumbotronStyle}>
-      <Container className="py-5">
-        <Row className="text-center">
+    <div style={jumbotronStyle}>
+      <Container className="py-5 text-center">
+        <Row>
           <Col>
             <h1 className="display-3">Bienvenido a CyberWorld</h1>
             <p className="lead">
@@ -23,6 +26,6 @@ export default function Home() {
           </Col>
         </Row>
       </Container>
-    </Jumbotron>
+    </div>
   );
 }
