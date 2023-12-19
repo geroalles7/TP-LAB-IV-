@@ -40,7 +40,10 @@ export default function AbmDiscos() {
     
     return (
         <>
-            <h1>Discos</h1>
+            <div class="container text-center">
+                <h1>Discos</h1>
+            </div>
+            
             {error ? <h1>Error: {error}</h1> : null /*aca trato el error*/} 
             <div className="container">
                 <table class="table table-dark">

@@ -1,0 +1,14 @@
+npm install vite@latest
+
+npm install react-bootstrap
+pip install fastapi uvicorn sqlalchemy 
+npm install bootstrap
+pip install psycopg2
+
+
+python -m uvicorn main:app --reload   //para lanzar api
+
+ pipenv run python -m venv   //entorno virtual
+ pipenv --venv   
+ cd .\venv\Scripts  
+ .\venv\Scripts\activate           

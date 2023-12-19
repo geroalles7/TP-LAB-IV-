@@ -1,0 +1,20 @@
+nav {
+    display: flex;
+    margin-bottom: 0%;
+}
+
+#encabezado{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+}
+
+li {
+   
+    padding: 5px; 
+}
+
+#texto{
+    font-size: 20px;
+}
