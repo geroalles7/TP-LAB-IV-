@@ -9,7 +9,6 @@ import Home from "./home.jsx";
 import LaptopsInfo from "./componentes/laptop-info.jsx";
 import NotFound from "./notFound";
 
-export const modalRoot = document.getElementById("modal-root");
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <Routes>
