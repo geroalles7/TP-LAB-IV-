@@ -23,8 +23,12 @@ export function get_laptop(id) {
   return axios.get(`http://localhost:8000/laptops/${id}`); // Ajusta la URL y puerto de tu servidor FastAPI
 }
 
-export function edit_laptop(id, laptop) {
-  return axios.put(`http://localhost:8000/laptops/${id}`, laptop); // Ajusta la URL y puerto de tu servidor FastAPI
+export function edit_laptop(laptop) {
+  return axios.put(`http://localhost:8000/laptops/${laptop.id}`, laptop); // Ajusta la URL y puerto de tu servidor FastAPI
+}
+
+export function edit_laptop_post(laptop) {
+  return axios.post(`http://localhost:8000/laptops/${laptop.id}`, laptop);
 }
 
 export function get_disco(id_disco) {

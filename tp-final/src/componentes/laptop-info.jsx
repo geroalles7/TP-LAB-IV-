@@ -29,7 +29,8 @@ export default function LaptopsInfo() {
   }, [id]);
 
   if (error) return <div className="h1 text-center">{error}</div>;
-  if (!laptop) return <div>Cargando...</div>;
+  if (!laptop)
+    return <div className="h2 text-black-50 text-center">Cargando...</div>;
 
   return (
     <section className="py-5">
@@ -114,7 +115,7 @@ export default function LaptopsInfo() {
                       </tr>
                       <tr>
                         <th>Tamaño del Disco</th>
-                        <td>{laptop.disco_tamaño} GB</td>
+                        <td>{laptop.disco_tamanio} GB</td>
                       </tr>
                       <tr>
                         <th>Placa</th>
@@ -166,8 +167,8 @@ export default function LaptopsInfo() {
                 <td>{laptop.disco_marca}</td>
               </tr>
               <tr>
-                <th>Tamaño del Disco</th>
-                <td>{laptop.disco_tamaño} GB</td>
+                <th>tamanio del Disco</th>
+                <td>{laptop.disco_tamanio} GB</td>
               </tr>
               <tr>
                 <th>Placa</th>

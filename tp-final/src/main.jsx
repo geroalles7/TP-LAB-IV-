@@ -7,6 +7,7 @@ import LaptopsForm from "./componentes/laptops-Form.jsx";
 import About from "./about.jsx";
 import Home from "./home.jsx";
 import LaptopsInfo from "./componentes/laptop-info.jsx";
+import NotFound from "./notFound";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -18,6 +19,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="laptops/agregar" element={<LaptopsForm />} />
         <Route path="laptops/:id" element={<LaptopsForm />} />
         <Route path="laptops/ver/:id" element={<LaptopsInfo />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   </BrowserRouter>

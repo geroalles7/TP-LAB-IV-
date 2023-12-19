@@ -3,13 +3,16 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import Column, Integer, String, Sequence
+from sqlalchemy import Column, Integer, String, Sequence, Float
 from sqlalchemy.ext.declarative import declarative_base
 
 app = FastAPI()
 
 #Configuración de CORS para permitir solicitudes desde el frontend en desarrollo
-origins = ["http://localhost:5173"]  # Ajusta según la URL de tu frontend React
+origins = [
+    "http://localhost:5173",  # o la URL de tu frontend React
+]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -17,6 +20,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 #conexion a BD
 hostname='localhost',
@@ -29,31 +33,38 @@ Base = declarative_base()
 
 class Discos_rigidos(Base):
     __tablename__ = 'discos_rigidos'
-    id = Column(Integer, primary_key=True)
-    marca = Column(String(50))
-    tipo = Column(String(50))
-    tamaño = Column(Integer)
+    id = Column(Integer(), primary_key=True)
+    marca = Column(String(50), nullable=False, unique=False)
+    tipo = Column(String(50), nullable=False, unique=False)
+    tamanio = Column(Integer)
+
+
+class Disco(BaseModel):
+    id: int
+    marca: str
+    tipo: str
+    tamanio: int
 
 
 class Laptops(Base):
     __tablename__ = 'laptops'
     id = Column(Integer, primary_key=True)
-    marca = Column(String(50))
-    modelo = Column(String(50))
+    marca = Column(String(50), nullable=False, unique=False)
+    modelo = Column(String(50), nullable=False, unique=False)
     ram = Column(Integer)
-    placa=Column(String(50))
-    id_disco=Column(Integer)
-    precio=Column(Integer)
+    placa = Column(String(50), nullable=True, unique=False)
+    id_disco = Column(Integer)
+    precio = Column(Float)  # Cambia el tipo de dato a Float
 
 
 class Laptop(BaseModel):
-    id:int
-    marca:str
-    modelo:str
-    ram :int
-    placa:str
+    id: int
+    marca: str
+    modelo: str
+    ram: int
+    placa: str
     id_disco: int
-    precio:int
+    precio: float 
 
 
 engine=create_engine("postgresql://postgres:admin88@localhost:5432/postgres",echo=True)
@@ -125,7 +136,7 @@ def obtener_laptop(laptops_id: int):
             "disco_id": laptop.id_disco,
             "disco_marca": disco.marca,
             "disco_tipo": disco.tipo,
-            "disco_tamaño":disco.tamaño, 
+            "disco_tamanio":disco.tamanio, 
             "placa": laptop.placa, 
             "precio": laptop.precio
         }
@@ -154,35 +165,42 @@ def crear_laptop(laptop:Laptop):
         session.close()
 
 
-@app.put("/laptops/{laptop_id}")
-def actualizar_laptop(laptop_id:int, datos_actualizados: Laptop):
-    print("Datos recibidos en el servidor:", datos_actualizados.dict())
+@app.put("/laptops/{laptop_id}", response_model=None)
+def actualizar_laptop(laptop_editada: Laptop):
+    print("Datos recibidos en el servidor:", laptop_editada.marca)
     session = Session()
 
     try:
         # Buscar la laptop por su ID
-        laptop = session.query(Laptops).filter(Laptops.id == laptop_id).first()
-
+        laptop = session.query(Laptops).filter(Laptops.id == laptop_editada.id).update({
+                Laptops.marca : laptop_editada.marca,
+                Laptops.modelo : laptop_editada.modelo,
+                Laptops.ram : laptop_editada.ram,
+                Laptops.placa : laptop_editada.placa,
+                Laptops.id_disco : laptop_editada.id_disco,
+                Laptops.precio : laptop_editada.precio
+            })
+        
         # Verificar si la laptop existe
         if laptop is None:
             raise HTTPException(status_code=404, detail="Laptop no encontrado")
         
-        # Actualizar los datos del usuario
-        laptop.marca=datos_actualizados.marca
-        laptop.modelo=datos_actualizados.modelo
-        laptop.ram=datos_actualizados.ram
-        laptop.placa=datos_actualizados.placa
-        laptop.id_disco=datos_actualizados.id_disco
-        laptop.precio=datos_actualizados.precio
-       
-
-        # Confirmar los cambios en la base de datos
         session.commit()
 
-        return {"mensaje": "Laptop actualizado exitosamente", "Laptop": laptop.marca}
+        return {"mensaje": "Laptop actualizado exitosamente", "Laptop": laptop}
     finally:
         session.close()
 
+@app.post("/laptops/{laptop_id}")
+def actualizar_laptop_post(laptop: Laptop):
+    session=Session()
+    try:
+        nuevo_laptop = Laptops(marca=laptop.marca, modelo=laptop.modelo, ram=laptop.ram,placa=laptop.placa,id_disco=laptop.id_disco, precio=laptop.precio)
+        session.query(Laptops)
+
+    finally:
+        pass
+        
 
 @app.delete("/laptops/{laptop_id}") #ANDA
 def borrar_laptop(laptop_id: int):

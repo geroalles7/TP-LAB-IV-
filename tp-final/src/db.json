@@ -20,10 +20,9 @@
       "tipo_disco": "ssd",
       "marca_disco": "gdsgdf",
       "modelo_disco": "sgdfg",
-      "tamaño_disco": 250,
+      "tamanio_disco": 250,
       "placa": "rtx 3050",
-      "precio": 100000,
-      "tam_disco": "1000"
+      "precio": 100000
     }
   ]
 }
