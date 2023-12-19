@@ -3,7 +3,6 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, ValidationError
 from sqlalchemy import create_engine
-import pandas as pd
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Column, Integer, String, Sequence
 from sqlalchemy.ext.declarative import declarative_base
@@ -15,7 +14,7 @@ app = FastAPI()
 hostname='localhost',
 database='postgres',
 username='postgres',
-pwd='Gero2002',
+pwd='lolaso88',
 port_id='5432'
 
 Base = declarative_base()
@@ -49,7 +48,7 @@ class Laptop(BaseModel):
     precio:int
 
 
-engine=create_engine("postgresql://postgres:Gero2002@localhost:5432/postgres",echo=True)
+engine=create_engine("postgresql://postgres:lolaso88@localhost:5432/postgres",echo=True)
 Base.metadata.create_all(engine)
 
 Session = sessionmaker(bind=engine)

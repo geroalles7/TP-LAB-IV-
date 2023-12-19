@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router';
 import { agregarLaptop, getLaptop, editar, get_Discos } from './laptop-Service';
 import { Modal, Form } from "react-bootstrap";
 import { HttpStatusCode } from "axios";
+import '../style.css'
 
 
 export default function LaptopsForm() {
@@ -131,33 +132,33 @@ export default function LaptopsForm() {
         <>
             <div className='container'>
 
-                <h2>Datos del Laptop</h2>
+                <h2 className="form-label text-white" id='h2-form'>Datos del Laptop</h2>
                 <div className="mb-3">
-                    <label className="form-label" htmlFor="descripcion">ID</label>
+                    <label className="form-label text-white" htmlFor="descripcion">ID</label>
                     <input className="form-control" type="text" id="id" value={laptop.id}
                         readOnly={true} disabled />
                 </div>
 
                 <div className="mb-3">
-                    <label className="form-label" htmlFor="marca">Marca</label>
+                    <label className="form-label text-white" htmlFor="marca">Marca</label>
                     <input className="form-control" type="text" id="marca" value={laptop.marca}
                         onChange={handleEditChange}></input>
                 </div>
                 <div className="mb-3">
-                    <label className="form-label" htmlFor="modelo">Modelo</label>
+                    <label className="form-label text-white" htmlFor="modelo">Modelo</label>
                     <input className="form-control" type="text" id="modelo" value={laptop.modelo}
                         onChange={handleEditChange}  ></input>
                 </div>
 
                 <div className="mb-3">
-                    <label className="form-label" htmlFor="ram">Ram (Gb)</label>
+                    <label className="form-label text-white" htmlFor="ram">Ram (Gb)</label>
                     <input className="form-control" type="number" id="ram" value={laptop.ram}
                         onChange={handleEditChange} ></input>
                 </div>
                 <div className="mb-3">
                     <Form>
                         <Form.Group controlId="exampleForm.SelectCustom">
-                            <Form.Label>Selecciona una opción de disco:</Form.Label>
+                            <Form.Label  className="form-label text-white">Selecciona una opción de disco:</Form.Label>
                             <Form.Select custom onChange={handleEditChange} id="id_disco">
                                 <option value={-1}> </option>
                                 {discos.map((disco) => (
@@ -173,19 +174,19 @@ export default function LaptopsForm() {
                 </div>
 
                 <div className="mb-3">
-                    <label className="form-label" htmlFor="placa">Placa de Video</label>
+                    <label className="form-label text-white" htmlFor="placa">Placa de Video</label>
                     <input className="form-control" type="text" id="placa" value={laptop.placa}
                         onChange={handleEditChange} ></input>
                 </div>
                 <div className="mb-3">
-                    <label className="form-label" htmlFor="precio">Precio</label>
+                    <label className="form-label text-white" htmlFor="precio">Precio</label>
                     <input className="form-control" type="number" id="precio" value={laptop.precio}
                         onChange={handleEditChange} ></input>
                 </div>
 
                 <div className="mb-3 text-end">
                     <button className="btn btn-primary me-1" onClick={aceptarCambios}>Aceptar</button>
-                    <button className="btn btn-secondary ms-1" onClick={cancelarCambios}>Cancelar</button>
+                    <button className="btn btn-danger ms-1" onClick={cancelarCambios}>Cancelar</button>
                 </div>
             </div>
 

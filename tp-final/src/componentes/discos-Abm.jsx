@@ -41,7 +41,7 @@ export default function AbmDiscos() {
     return (
         <>
             <div class="container text-center">
-                <h1>Discos</h1>
+                <h1 className="text-white">Discos</h1>
             </div>
             
             {error ? <h1>Error: {error}</h1> : null /*aca trato el error*/} 
@@ -69,7 +69,7 @@ export default function AbmDiscos() {
                     </tbody>
                 </table>
                 
-            </div>
+            </div><br /><br /><br /><br /><br /><br />
         </>
     )
 

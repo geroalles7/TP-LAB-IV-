@@ -1,11 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import './style.css'
+
 export default function About() {
     return <>
-        <div class="card">
+        <div class="card" id='cuadro'>
             <div class="card-body">
-                <h3 class="card-title text-center" >Acerca del TP</h3>
-                <p class="card-text text-center" id='texto'>Durante este período, nos hemos sumergido en desafíos técnicos y teóricos que han ampliado nuestras habilidades y conocimientos en el diseño, desarrollo y optimización de software. Este proyecto final no solo es un testimonio de nuestras habilidades individuales, sino también un reflejo del espíritu colaborativo que ha sido fomentado en el aula.
+                <h3 class="card-title text-center" id='mi-h3'>Acerca del TP</h3><br />
+                <p class="card-text text-center text-white" id='texto'>Durante este período, nos hemos sumergido en desafíos técnicos y teóricos que han ampliado nuestras habilidades y conocimientos en el diseño, desarrollo y optimización de software. Este proyecto final no solo es un testimonio de nuestras habilidades individuales, sino también un reflejo del espíritu colaborativo que ha sido fomentado en el aula.
 
                     El trabajo aborda un ABM de laptops, explorando las Api, React y Bases de datos. A lo largo de este proceso, hemos aplicado los principios y técnicas aprendidas a lo largo del programa, desde conceptos fundamentales hasta metodologías avanzadas de programación.
 
@@ -18,7 +19,6 @@ export default function About() {
                     ¡Gracias por acompañarnos en este viaje!
 
                     </p>
-                <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
             </div>
             <img src="https://cdn.computerhoy.com/sites/navi.axelspringer.es/public/media/image/2022/10/programacion-2846417.jpg" class="card-img-bottom" alt="..."></img>
         </div>
