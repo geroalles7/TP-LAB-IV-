@@ -1,3 +1,4 @@
+from tkinter import messagebox
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, ValidationError
@@ -6,6 +7,7 @@ import pandas as pd
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Column, Integer, String, Sequence
 from sqlalchemy.ext.declarative import declarative_base
+
 
 app = FastAPI()
 
@@ -183,7 +185,9 @@ def editar_laptop(datos_actualizados: Laptop, laptop_id:int):
         #Confirmo los cambios en la base de datos
         session.commit()
 
-        return {"mensaje": "Laptop actualizado exitosamente", "Laptop": laptop.marca}
+        
+        
+       
     finally:
         session.close()
 

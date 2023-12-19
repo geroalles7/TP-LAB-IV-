@@ -1,6 +1,7 @@
 export default function Home() {
     return <>
 
+
         <div>
             <div class="row bg-body-secondary position-relative">
                 <div class="col-md-6">
@@ -17,7 +18,7 @@ export default function Home() {
 
 
 
-
+    
             <div class="row bg-body-secondary position-relative">
                 <div class="col-md-6">
                     <img src="https://www.asusbymacman.es/img/cms/slider-zenbook-oled-min.jpg"></img>
@@ -35,8 +36,8 @@ export default function Home() {
 
 
 
-
     </>
 
 
 }
+

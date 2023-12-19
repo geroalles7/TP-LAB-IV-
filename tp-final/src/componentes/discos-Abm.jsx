@@ -49,7 +49,7 @@ export default function AbmDiscos() {
                 <table class="table table-dark">
                     <thead> 
                         <tr> 
-                           <th>ID</th><th>Marca</th><th>Tipo</th><th>Tamaño</th>
+                           <th>ID</th><th>Marca</th><th>Tipo</th><th>Tamaño(Gb)</th>
                         </tr>
                     </thead>
                     <tbody>

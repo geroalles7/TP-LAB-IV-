@@ -106,6 +106,7 @@ export default function LaptopsForm() {
             
                 try {
                     await editar(laptop);
+                    alert("Laptop editada con exito");
                 } catch (ex) {
                     setError(ex);
                 }
