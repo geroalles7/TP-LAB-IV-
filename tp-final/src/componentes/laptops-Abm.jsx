@@ -87,14 +87,14 @@ export default function AbmLaptops() {
             <h1 className="m-2">Laptops</h1>
           </div>
           <div className="col text-end ">
-            <Form onSubmit={handleSearchSubmit} className="d-flex m-2">
+            <Form onSubmit={handleSearchSubmit} className="d-flex m-1">
               <Form.Control
                 type="text"
-                placeholder="Buscar por marca..."
+                placeholder="Buscar por marca o modelo..."
                 value={searchTerm}
                 onChange={handleSearchChange}
               />
-              <Button type="submit" variant="secondary" className="m-2">
+              <Button type="submit" variant="secondary" className="m-3">
                 Buscar
               </Button>
               <button
@@ -122,16 +122,17 @@ export default function AbmLaptops() {
               </tr>
             </thead>
             <tbody>
-              {datos.map((t) => (
-                <tr key={t.id}>
+              {/* Muestra la lista de laptops filtradas */}
+              {filteredLaptops.map((laptop) => (
+                <tr key={laptop.id}>
                   <th>
-                    <Link to={`ver/${t.id}`}>{t.id}</Link>
+                    <Link to={`ver/${laptop.id}`}>{laptop.id}</Link>
                   </th>
-                  <td>{t.marca}</td>
-                  <td>{t.modelo}</td>
+                  <td>{laptop.marca}</td>
+                  <td>{laptop.modelo}</td>
                   <td>
                     ${" "}
-                    {t.precio.toLocaleString("es-AR", {
+                    {laptop.precio.toLocaleString("es-AR", {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 2,
                     })}
@@ -139,19 +140,19 @@ export default function AbmLaptops() {
                   <td>
                     <button
                       className="btn btn-success ms-1"
-                      onClick={() => verInfo(t.id)}
+                      onClick={() => verInfo(laptop.id)}
                     >
                       Ver
                     </button>
                     <button
                       className="btn btn-warning ms-1"
-                      onClick={() => editarLaptop(t.id)}
+                      onClick={() => editarLaptop(laptop.id)}
                     >
                       Editar
                     </button>
                     <button
                       className="btn btn-danger ms-1"
-                      onClick={() => handleBorrarLaptop(t.id)}
+                      onClick={() => handleBorrarLaptop(laptop.id)}
                     >
                       Borrar
                     </button>
@@ -159,14 +160,6 @@ export default function AbmLaptops() {
                 </tr>
               ))}
             </tbody>
-            {/* Muestra la lista de laptops filtradas */}
-            {filteredLaptops.map((laptop) => (
-              <div key={laptop.id}>
-                <p>Marca: {laptop.marca}</p>
-                <p>Modelo: {laptop.modelo}</p>
-                {/* Agrega el resto de la información de la laptop aquí */}
-              </div>
-            ))}
           </table>
         )}
       </div>
