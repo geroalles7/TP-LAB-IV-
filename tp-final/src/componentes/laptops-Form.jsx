@@ -12,12 +12,12 @@ import { HttpStatusCode } from "axios";
 export default function LaptopsForm() {
   const estadoInicial = {
     id: -1,
-    marca: "Apple",
-    modelo: "Mac Book Pro",
-    ram: 16,
-    id_disco: 1,
-    placa: "RTX 1060",
-    precio: 988000,
+    marca: "",
+    modelo: "",
+    ram: null,
+    id_disco: null,
+    placa: "",
+    precio: null,
   };
   const [laptop, setLaptop] = useState(estadoInicial);
   const [discos, setDiscos] = useState([]);
@@ -58,16 +58,29 @@ export default function LaptopsForm() {
   }
 
   async function aceptarCambios() {
+    // Validaciones
+    if (
+      !laptop.marca ||
+      !laptop.modelo ||
+      !laptop.ram ||
+      isNaN(laptop.ram) ||
+      !laptop.id_disco ||
+      isNaN(laptop.id_disco) ||
+      !laptop.precio ||
+      isNaN(laptop.precio)
+    ) {
+      // Si algún campo requerido está vacío o los campos numéricos no son válidos, muestra una alerta
+      alert("Por favor, completa todos los campos correctamente.");
+      return;
+    }
+
     if (laptop.id === -1) {
       try {
         await agregarLaptop(laptop);
         navigate(-1);
       } catch (ex) {
-        console.error("Error:", ex.message); // Imprime el mensaje del error
-        console.error("Nombre del error:", ex.name); // Imprime el nombre del error
-        console.error("Trama de pila:", ex.stack); // Imprime la trama de pila del error
         console.error(ex);
-        setError(ex.messagge);
+        setError(ex.message);
         setShowModalError(true);
       }
     } else {
@@ -75,15 +88,11 @@ export default function LaptopsForm() {
         await edit_laptop(laptop);
         navigate(-1);
       } catch (error) {
-        console.error("Error:", error.message); // Imprime el mensaje del error
-        console.error("Trama de pila:", error.stack); // Imprime la trama de pila del error
-        console.error("Error al editar la laptop:", error.response);
         console.error(error);
-        setError(error);
+        setError(error.message);
         setShowModalError(true);
       }
     }
-    //if (error === null) navigate(-1);
   }
 
   function cancelarCambios() {
@@ -128,6 +137,7 @@ export default function LaptopsForm() {
               <input
                 className="form-control"
                 type="text"
+                placeholder="Apple"
                 id="marca"
                 value={laptop.marca}
                 onChange={handleEditChange}
@@ -141,6 +151,7 @@ export default function LaptopsForm() {
                 className="form-control"
                 type="text"
                 id="modelo"
+                placeholder="Mac Book Pro"
                 value={laptop.modelo}
                 onChange={handleEditChange}
               ></input>
@@ -152,6 +163,7 @@ export default function LaptopsForm() {
               <input
                 className="form-control"
                 type="number"
+                placeholder="16"
                 id="ram"
                 value={laptop.ram}
                 onChange={handleEditChange}
@@ -185,6 +197,7 @@ export default function LaptopsForm() {
                 className="form-control"
                 type="text"
                 id="placa"
+                placeholder="RTX 1060"
                 value={laptop.placa}
                 onChange={handleEditChange}
               ></input>
@@ -193,10 +206,12 @@ export default function LaptopsForm() {
               <label className="form-label" htmlFor="precio">
                 Precio
               </label>
+
               <input
                 className="form-control"
                 type="number"
                 id="precio"
+                placeholder="500000"
                 value={laptop.precio}
                 onChange={handleEditChange}
               ></input>

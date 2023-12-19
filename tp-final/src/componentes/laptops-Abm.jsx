@@ -44,6 +44,8 @@ export default function AbmLaptops() {
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
+    //con esto asi hago un filtrado local, de cliente
+
     // Aquí puedes realizar la búsqueda utilizando searchTerm en tu API
     // Actualiza la función de tu API con la lógica específica de búsqueda
     // Puedes enviar searchTerm a tu API y devolver los resultados filtrados

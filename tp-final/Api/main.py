@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import ForeignKey, create_engine
+from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy import Column, Integer, String, Sequence, Float
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -36,7 +36,7 @@ class Discos_rigidos(Base):
     id = Column(Integer(), primary_key=True)
     marca = Column(String(50), nullable=False, unique=False)
     tipo = Column(String(50), nullable=False, unique=False)
-    tamanio = Column(Integer)
+    tamanio = Column(Integer,nullable=False)
 
 
 class Disco(BaseModel):
@@ -51,11 +51,13 @@ class Laptops(Base):
     id = Column(Integer, primary_key=True)
     marca = Column(String(50), nullable=False, unique=False)
     modelo = Column(String(50), nullable=False, unique=False)
-    ram = Column(Integer)
+    ram = Column(Integer, nullable=False)
     placa = Column(String(50), nullable=True, unique=False)
-    id_disco = Column(Integer)
+    id_disco = Column(Integer, ForeignKey('discos_rigidos.id'))  # Agrega la relación de clave externa
     precio = Column(Float)  # Cambia el tipo de dato a Float
 
+    # Agrega una relación para facilitar las consultas 
+    disco_relacionado = relationship('Discos_rigidos', foreign_keys=[id_disco])
 
 class Laptop(BaseModel):
     id: int
