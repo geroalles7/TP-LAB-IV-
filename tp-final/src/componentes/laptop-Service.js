@@ -30,7 +30,7 @@ export function getLaptop(id){
 export function editar(laptop) {
     console.log("Datos a enviar para editar:", laptop);
     try {
-        const response = axios.put(`http://localhost:8000/laptops/${laptop.id}`, laptop);
+        const response = axios.put(`http://localhost:8000/laptops/${parseInt(laptop.id)}`, laptop);
         console.log("Respuesta del servidor al editar:", response.data);
         return response.data;
     } catch (error) {

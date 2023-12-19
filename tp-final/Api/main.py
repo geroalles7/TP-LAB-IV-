@@ -96,7 +96,7 @@ def obtener_disco(id_disco: int):
         if disco is None:
             raise HTTPException(status_code=404, detail="Disco no encontrado")
 
-        return {"id": disco.id, "marca": disco.marca, "tipo": disco.tipo, "tamanio": disco.tamanio}
+        return {"id": disco.id, "marca": disco.marca, "tipo": disco.tipo, "tamaño": disco.tamaño}
     finally:
         session.close()
 
@@ -143,8 +143,11 @@ def crear_laptop(laptop:Laptop):
 
     try:
         
-        nuevo_laptop = Laptops(marca=laptop.marca, modelo=laptop.modelo, ram=laptop.ram,placa=laptop.placa,id_disco=laptop.id_disco, precio=laptop.precio)
-        discos = session.query(Discos_rigidos).count()
+        if(laptop.marca=='' or laptop.modelo=='' or laptop.ram==0 or laptop.placa==' ' or laptop.id_disco==0 or laptop.precio==0):
+            raise HTTPException(status_code=404, detail="Faltan ingresar campos")
+        else:
+            nuevo_laptop = Laptops(marca=laptop.marca, modelo=laptop.modelo, ram=laptop.ram,placa=laptop.placa,id_disco=laptop.id_disco, precio=laptop.precio)
+            discos = session.query(Discos_rigidos).count()
        
        
         if(nuevo_laptop.id_disco <= discos):
@@ -160,27 +163,31 @@ def crear_laptop(laptop:Laptop):
 
 
 @app.put("/laptops/{laptop_id}")
-def editar_laptop(laptop_id:int, datos_actualizados: Laptop):
+def editar_laptop(datos_actualizados: Laptop, laptop_id:int):
    
     session = Session()
-
+    print(f"Datos recibidos en el servidor:", datos_actualizados)
     try:
         # Buscar la laptop por su ID
         laptop = session.query(Laptops).filter(Laptops.id == laptop_id).first()
+        #laptop = session.query(Laptops).update(laptop.id)
 
         # Verificar si la laptop existe
         if laptop is None:
             raise HTTPException(status_code=404, detail="Laptop no encontrado")
         
         # Actualizar los datos del usuario
+        laptop.id=laptop_id
         laptop.marca=datos_actualizados.marca
         laptop.modelo=datos_actualizados.modelo
         laptop.ram=datos_actualizados.ram
-        laptop.placa=datos_actualizados.placa
         laptop.id_disco=datos_actualizados.id_disco
+        laptop.placa=datos_actualizados.placa
         laptop.precio=datos_actualizados.precio
+        
        
-       
+        
+
 
         # Confirmar los cambios en la base de datos
         session.commit()
@@ -210,7 +217,6 @@ def borrar_laptop(laptop_id: int):
         return {"mensaje": "Laptop borrado exitosamente"}
     finally:
         session.close()
-
 
 
 

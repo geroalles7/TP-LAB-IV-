@@ -7,53 +7,7 @@ export default function LaptopsInfo() {
   const [laptop, setLaptop] = useState(null);
   const [error, setError] = useState(null);
   const { id } = useParams();
-  //const navigate = useNavigate();
-
-  /*useEffect(() => {
-    getLaptop(parseInt(id, 10))
-      .then((respuesta) => {
-        if (respuesta.status === 200) {
-          console.log(respuesta.data);
-          //setLaptop(respuesta.data);
-          setLaptop(prevLaptop => {
-            return {...prevLaptop, ...respuesta.data};
-          });
-          console.log("Estado actualizado:", laptop);
-        } else {
-          alert(respuesta.statusText);
-        }
-      })
-      .catch((reason) => setError(reason.message));
-  }, [id]);*/
-  /*useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const respuesta = await getLaptop(parseInt(id, 10));
-        
-        console.log("Respuesta del servicio:", respuesta.data);
-
-        if (respuesta.status === 200) {
-          setLaptop(respuesta.data);
-          
-        } else {
-          setError(`Error: ${respuesta.statusText}`);
-        }
-        const respuesta_disco=await obtener_disco(laptop.id_disco)
-        if (respuesta_disco.status === 200) {
-          setDisco(respuesta_disco.data);
-          
-        } 
-
-      } catch (error) {
-        console.error("Error en la solicitud:", error.message);
-        setError(`Error: ${error.message}`);
-      }
-    };
-
-    fetchData();
-  }, [id]);
   
-  console.log("Estado laptop:", laptop); // Agrega esta línea*/
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -94,7 +48,7 @@ export default function LaptopsInfo() {
   return (
     <>
       <div className="h1">{laptop.marca+" "+laptop.modelo}</div>
-      <table>
+      <table className=" table table-dark">
         <thead>
           <tr>
             <th>ID</th>
@@ -125,13 +79,4 @@ export default function LaptopsInfo() {
       </table>
     </>
   );
-}/*<td>{laptop.id}</td>
-            <td>{laptop.marca}</td>
-            <td>{laptop.modelo}</td>
-            <td>{laptop.ram}</td>
-            <td>{laptop.tipoDisco}</td>
-            <td>{laptop.marcaDisco}</td>
-            <td>{laptop.modeloDisco}</td>
-            <td>{laptop.tamanoDisco}</td>
-            <td>{laptop.placa}</td>
-            <td>{laptop.precio}</td>*/
+}

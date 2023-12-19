@@ -33,7 +33,7 @@ export default function AbmLaptops() {
             })
             .catch((reason) => setError(reason.message));
     }, []);
-    
+
     function refrescarDatos() {
         getLaptops()
             .then((respuesta) => {
@@ -41,15 +41,14 @@ export default function AbmLaptops() {
                     // Aplicar filtro a los datos
                     const laptopsFiltradas = respuesta.data.filter(
                         (laptop) =>
-                            //laptop.marca.toLowerCase().includes(filtro.toLowerCase()) ||
+                            laptop.marca.toLowerCase().includes(filtro.toLowerCase()) ||
                             laptop.modelo.toLowerCase().includes(filtro.toLowerCase())
                     );
-                    console.log("Datos originales:", respuesta.data);
-                    console.log("Datos filtrados:", laptopsFiltradas);
+
                     setDatos(laptopsFiltradas);
 
                     if (laptopsFiltradas.length === 0) {
-                        alert("No se encontraron laptops");
+                        alert("No se encontraron laptops o los datos ingresados son invalidos");
                     }
                 } else {
                     alert(respuesta.statusText);
@@ -61,7 +60,7 @@ export default function AbmLaptops() {
 
     async function borrarLaptop(id) {
         await borrar(parseInt(id, 10));
-      
+
         refrescarDatos();
     }
 
@@ -104,39 +103,43 @@ export default function AbmLaptops() {
 
 
             </div>
-            <figure class="figure">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
-                <figcaption class="figure-caption">A caption for the above image.</figcaption>
-            </figure>
-            <figure class="figure">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
-                <figcaption class="figure-caption">A caption for the above image.</figcaption>
-            </figure>
-            <figure class="figure">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
-                <figcaption class="figure-caption">A caption for the above image.</figcaption>
-            </figure>
-            <figure class="figure">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
-                <figcaption class="figure-caption">A caption for the above image.</figcaption>
-            </figure>
-            <figure class="figure">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
-                <figcaption class="figure-caption">A caption for the above image.</figcaption>
-            </figure>
-            <figure class="figure">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
-                <figcaption class="figure-caption">A caption for the above image.</figcaption>
-            </figure>
-            <figure class="figure">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
-                <figcaption class="figure-caption">A caption for the above image.</figcaption>
-            </figure>
-            <figure class="figure">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
-                <figcaption class="figure-caption">A caption for the above image.</figcaption>
-            </figure>
-            
+            <div class="align-items-center">
+                <figure class="figure">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
+                    <figcaption class="figure-caption">A caption for the above image.</figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
+                    <figcaption class="figure-caption">A caption for the above image.</figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
+                    <figcaption class="figure-caption">A caption for the above image.</figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
+                    <figcaption class="figure-caption">A caption for the above image.</figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
+                    <figcaption class="figure-caption">A caption for the above image.</figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
+                    <figcaption class="figure-caption">A caption for the above image.</figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
+                    <figcaption class="figure-caption">A caption for the above image.</figcaption>
+                </figure>
+                <figure class="figure">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjgLMS4B3BxouzYXLxsViZxieAUhE6ieIAzg&usqp=CAU" alt="..."></img>
+                    <figcaption class="figure-caption">A caption for the above image.</figcaption>
+                </figure>
+                
+
+            </div>
+
             {error ? <h1>Error: {error}</h1> : null}
             <div class="container ">
 
