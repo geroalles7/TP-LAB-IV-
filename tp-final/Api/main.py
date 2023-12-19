@@ -1,10 +1,11 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from sqlalchemy import ForeignKey, create_engine
-from sqlalchemy.orm import sessionmaker, relationship
-from sqlalchemy import Column, Integer, String, Sequence, Float
+from pydantic import BaseModel, Field
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, Session
+from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
 
 app = FastAPI()
 
@@ -20,7 +21,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 #conexion a BD
 hostname='localhost',
@@ -147,6 +147,10 @@ def obtener_laptop(laptops_id: int):
 
 @app.post("/laptops/")
 def crear_laptop(laptop:Laptop):
+    # Validaciones
+    if not laptop.marca or not laptop.modelo or not laptop.ram or not laptop.id_disco or not laptop.precio:
+        raise HTTPException(status_code=400, detail="Por favor, completa todos los campos correctamente.")
+    
     session = Session()
 
     try:
@@ -166,44 +170,31 @@ def crear_laptop(laptop:Laptop):
     finally:
         session.close()
 
-
 @app.put("/laptops/{laptop_id}", response_model=None)
 def actualizar_laptop(laptop_editada: Laptop):
-    print("Datos recibidos en el servidor:", laptop_editada.marca)
+     # Validaciones
+    if not laptop_editada.marca or not laptop_editada.modelo or not laptop_editada.ram or not laptop_editada.id_disco or not laptop_editada.precio:
+        raise HTTPException(status_code=400, detail="Por favor, completa todos los campos correctamente.")
+    
     session = Session()
 
     try:
-        # Buscar la laptop por su ID
-        laptop = session.query(Laptops).filter(Laptops.id == laptop_editada.id).update({
-                Laptops.marca : laptop_editada.marca,
-                Laptops.modelo : laptop_editada.modelo,
-                Laptops.ram : laptop_editada.ram,
-                Laptops.placa : laptop_editada.placa,
-                Laptops.id_disco : laptop_editada.id_disco,
-                Laptops.precio : laptop_editada.precio
-            })
-        
-        # Verificar si la laptop existe
-        if laptop is None:
-            raise HTTPException(status_code=404, detail="Laptop no encontrado")
-        
+        # Actualizar la laptop
+        session.query(Laptops).filter(Laptops.id == laptop_editada.id).update({
+            Laptops.marca: laptop_editada.marca,
+            Laptops.modelo: laptop_editada.modelo,
+            Laptops.ram: laptop_editada.ram,
+            Laptops.placa: laptop_editada.placa,
+            Laptops.id_disco: laptop_editada.id_disco,
+            Laptops.precio: laptop_editada.precio
+        })
+
         session.commit()
 
-        return {"mensaje": "Laptop actualizado exitosamente", "Laptop": laptop}
+        return {"mensaje": "Laptop actualizada exitosamente"}
     finally:
         session.close()
-
-@app.post("/laptops/{laptop_id}")
-def actualizar_laptop_post(laptop: Laptop):
-    session=Session()
-    try:
-        nuevo_laptop = Laptops(marca=laptop.marca, modelo=laptop.modelo, ram=laptop.ram,placa=laptop.placa,id_disco=laptop.id_disco, precio=laptop.precio)
-        session.query(Laptops)
-
-    finally:
-        pass
         
-
 @app.delete("/laptops/{laptop_id}") #ANDA
 def borrar_laptop(laptop_id: int):
     session = Session()
