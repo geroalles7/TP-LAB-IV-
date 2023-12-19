@@ -14,7 +14,7 @@ app = FastAPI()
 hostname='localhost',
 database='postgres',
 username='postgres',
-pwd='lolaso88',
+pwd='Gero2002',
 port_id='5432'
 
 Base = declarative_base()
@@ -48,7 +48,7 @@ class Laptop(BaseModel):
     precio:int
 
 
-engine=create_engine("postgresql://postgres:lolaso88@localhost:5432/postgres",echo=True)
+engine=create_engine("postgresql://postgres:Gero2002@localhost:5432/postgres",echo=True)
 Base.metadata.create_all(engine)
 
 Session = sessionmaker(bind=engine)

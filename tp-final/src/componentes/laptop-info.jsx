@@ -54,12 +54,12 @@ export default function LaptopsInfo() {
             <th>ID</th>
             <th>Marca</th>
             <th>Modelo</th>
-            <th>Ram</th>
+            <th>Ram(Gb)</th>
             <th>Tipo del Disco</th>
             <th>Marca del Disco</th>
-            <th>Tamaño del Disco</th>
+            <th>Tamaño del Disco(Gb)</th>
             <th>Placa</th>
-            <th>Precio</th>
+            <th>Precio ($)</th>
           </tr>
         </thead>
         <tbody>
