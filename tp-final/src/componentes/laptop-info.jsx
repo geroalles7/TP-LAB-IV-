@@ -47,7 +47,7 @@ export default function LaptopsInfo() {
 
   return (
     <>
-      <div className="h1">{laptop.marca+" "+laptop.modelo}</div>
+      <div className="h1 text-white text-center">{laptop.marca+" "+laptop.modelo}</div>
       <table className=" table table-dark">
         <thead>
           <tr>

@@ -27,7 +27,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path='laptops/ver/:id' element={<LaptopsInfo />} />
           <Route path='discos' element={<AbmDiscos />} />
         </Route>
-
+        
       </Route>
     </Routes>
   </BrowserRouter>

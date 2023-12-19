@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { getLaptops, borrar } from "./laptop-Service";
 import { useEffect, useState } from "react";
+import '../style.css'
 //import { Link } from "react-router-dom";
 
 
@@ -19,13 +20,13 @@ export default function AbmLaptops() {
 
     useEffect(() => {
         refrescarDatos(); // Guardar todos los datos originales al cargar el componente
-        
+
         getLaptops()
             .then((respuesta) => {
                 if (respuesta.status === 200) {
                     setTodosLosDatos(respuesta.data);
                 } else {
-                    
+
                     <div class="alert alert-danger" role="alert">
                         A simple danger alert—check it out!
                     </div>
@@ -85,29 +86,33 @@ export default function AbmLaptops() {
     return (
         <>
 
+            <div id='conta'>
+                <h1 className="text-white text-center">Laptops</h1><br />
+                <div class="mb-1 d-grid gap-2 col-6 mx-auto">
+                    <input 
+                        id="place-holder"
+                        className="d-grid gap-2 col-6 mx-auto"
+                        type="text"
+                        placeholder="Buscar marca o modelo"
+                        value={filtro}
+                        onChange={(e) => setFiltro(e.target.value)}
+                    />
+                    <button className="btn btn-primary d-grid gap-2 col-6 mx-auto" id='btn-buscar'  onClick={buscar}>
+                        Buscar
+                    </button>
+                    <button className="btn btn-secondary d-grid gap-2 col-6 mx-auto" id='btn-limpiar' onClick={limpiarFiltro}>
+                        Limpiar
+                    </button>
+                    <br /><br />
 
-            <h1>Laptops</h1>
-            <div class="mb-1 ">
-                <input
-                    type="text"
-                    placeholder="Buscar marca o modelo"
-                    value={filtro}
-                    onChange={(e) => setFiltro(e.target.value)}
-                />
-                <button className="btn btn-primary ms-2" onClick={buscar}>
-                    Buscar
-                </button>
-                <button className="btn btn-secondary ms-1" onClick={limpiarFiltro}>
-                    Limpiar
-                </button>
-
+                </div>
 
             </div>
-           
-            
+
+
 
             {error ? <h1>Error: {error}</h1> : null}
-            <div class="container ">
+            <div class="container "><br />
 
                 <table class="table table-dark ">
                     <thead>
@@ -154,7 +159,7 @@ export default function AbmLaptops() {
 
                 </table>
                 <div class="align-items-center">
-                    <button className="btn btn-primary d-grid gap-2 col-6 mx-auto" onClick={() => navigate("agregar")}>Agregar</button>
+                    <button className="btn btn-primary d-grid gap-2 col-6 mx-auto" onClick={() => navigate("agregar")}>Agregar</button><br />
                 </div>
 
             </div>
