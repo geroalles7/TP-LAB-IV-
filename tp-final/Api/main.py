@@ -17,7 +17,7 @@ username='postgres',
 pwd='Gero2002',
 port_id='5432'
 
-Base = declarative_base()
+Base = declarative_base()  #clase base para definir modelos de datos en tu aplicación, es de SQLAlchemy
 
 class Discos_rigidos(Base):
     __tablename__ = 'discos_rigidos'
@@ -51,8 +51,8 @@ class Laptop(BaseModel):
 engine=create_engine("postgresql://postgres:Gero2002@localhost:5432/postgres",echo=True)
 Base.metadata.create_all(engine)
 
-Session = sessionmaker(bind=engine)
-session = Session()
+Session = sessionmaker(bind=engine)   #session para realizar operaciones sobre la BD
+session = Session()  #instancia de esa session
 
 
 

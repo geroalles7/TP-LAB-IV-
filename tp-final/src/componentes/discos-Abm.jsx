@@ -28,7 +28,7 @@ export default function AbmDiscos() {
                 alert(respuesta.statusText);
             }
         })
-        .catch(reason=>setError(reason.messagge));   //aca trato el error
+        .catch(reason=>setError(reason.messagge));   
     }
    
    
