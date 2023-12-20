@@ -57,6 +57,7 @@ export default function LaptopsForm() {
   const navigate = useNavigate();
 
   function handleEditChange(e) {
+    console.log("ID: " + e.target.id + ". Value: " + e.target.value);
     setLaptop({ ...laptop, [e.target.id]: e.target.value });
   }
 
@@ -72,6 +73,7 @@ export default function LaptopsForm() {
       isNaN(laptop.ram) ||
       !laptop.id_disco ||
       isNaN(laptop.id_disco) ||
+      laptop.id_disco == -1 ||
       !laptop.precio ||
       isNaN(laptop.precio)
     ) {
@@ -101,7 +103,7 @@ export default function LaptopsForm() {
           setShowSuccessModal(true);
           setTimeout(() => {
             navigate(-1);
-          }, 3000);
+          }, 2150);
         })
         .catch((ex) => {
           console.error(ex);
@@ -116,7 +118,7 @@ export default function LaptopsForm() {
           setShowSuccessModal(true);
           setTimeout(() => {
             navigate(-1);
-          }, 3000);
+          }, 2150);
         })
         .catch((error) => {
           console.error(error);
@@ -182,7 +184,7 @@ export default function LaptopsForm() {
         </Modal>
 
         <Modal show={showSuccessModal} onHide={handleCerrarSuccess}>
-          <Modal.Header closeButton>
+          <Modal.Header closeButton centered>
             <Modal.Title>Cambios Guardados</Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -195,7 +197,7 @@ export default function LaptopsForm() {
           </Modal.Footer>
         </Modal>
 
-        <Modal show={showModal} onHide={handleClose}>
+        <Modal show={showModal} onHide={handleClose} centered>
           <Modal.Header closeButton>
             <Modal.Title>
               {laptop.id === -1 ? "Nueva laptop" : "Editar laptop"} ID:{" "}
@@ -252,7 +254,7 @@ export default function LaptopsForm() {
                       onChange={handleEditChange}
                       id="id_disco"
                     >
-                      <option value={laptop.id_disco}> </option>
+                      <option value={-1}> </option>
                       {discos.map((disco) => {
                         const optionText = `Capacidad: ${disco.tamanio} GB, Marca: ${disco.marca}, Tipo: ${disco.tipo}`;
                         const isActual = disco.id === laptop.id_disco;
