@@ -11,6 +11,7 @@ import Datos from './datos.jsx'
 import Home from './home.jsx'
 import LaptopsInfo from './componentes/laptop-info.jsx'
 import AbmDiscos from './componentes/discos-Abm.jsx'
+import NotFound from './componentes/not-found.jsx'
 
 
 
@@ -27,7 +28,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route path='laptops/ver/:id' element={<LaptopsInfo />} />
           <Route path='discos' element={<AbmDiscos />} />
         </Route>
-        
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   </BrowserRouter>
