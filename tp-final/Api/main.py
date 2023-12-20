@@ -170,7 +170,7 @@ def editar_laptop(datos_actualizados: Laptop, laptop_id:int):
         if laptop is None:
             raise HTTPException(status_code=404, detail="Laptop no encontrado")
         
-        #Actualizar los datos del laptop
+        #Actualizo los datos del laptop
         laptop.id=laptop_id
         laptop.marca=datos_actualizados.marca
         laptop.modelo=datos_actualizados.modelo
@@ -204,7 +204,7 @@ def borrar_laptop(laptop_id: int):
         if laptop is None:
             raise HTTPException(status_code=404, detail="Laptop no encontrado")
 
-        #Borro el usuario de la base de datos
+        #Borro la laptop de la base de datos
         session.delete(laptop)
         session.commit()
 

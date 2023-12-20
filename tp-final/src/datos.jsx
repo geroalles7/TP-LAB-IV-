@@ -1,5 +1,5 @@
 import { Outlet, NavLink } from 'react-router-dom'
-//import 'bootstrap/dist/css/bootstrap.css'
+
 
 export default function Datos() {
     return (
@@ -18,7 +18,7 @@ export default function Datos() {
 
 
 
-            <Outlet /*este outlet dentro de datos hace q se me despliegue otra lista dentro del navbar*/ />
+            <Outlet /*este outlet dentro de datos hace q se me despliegue otra pagina en la misma ventana*/ />
 
         </>
     )

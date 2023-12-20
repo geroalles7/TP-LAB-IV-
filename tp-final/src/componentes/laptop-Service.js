@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios";  //para realizar solicitudes a un servidor y recibir respuestas 
 
 export function getLaptops() {
     return axios.get("http://localhost:8000/laptops");
@@ -10,7 +10,6 @@ export function get_Discos() {
 
 let cont = 0;
 export function agregarLaptop(nuevaLaptop) {
-    //let nueva = laptops.reduce((max, actual)=>actual.id > max ? actual.id : max, 0)+1;
     cont = cont + 1;
     return axios.post("http://localhost:8000/laptops/", { ...nuevaLaptop, id: cont });
 }

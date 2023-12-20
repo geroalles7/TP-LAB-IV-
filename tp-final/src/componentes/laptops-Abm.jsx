@@ -2,10 +2,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { getLaptops, borrar } from "./laptop-Service";
 import { useEffect, useState } from "react";
 import '../style.css'
-//import { Link } from "react-router-dom";
-
-
-
 
 
 export default function AbmLaptops() {
@@ -14,14 +10,13 @@ export default function AbmLaptops() {
     const navigate = useNavigate(); //para ir con un boton a otra pagina
     const location = useLocation();
     const [filtro, setFiltro] = useState("");
-    const [todosLosDatos, setTodosLosDatos] = useState([]); // Nuevo estado
-
+    const [todosLosDatos, setTodosLosDatos] = useState([]);
 
 
     useEffect(() => {
-        refrescarDatos(); // Guardar todos los datos originales al cargar el componente
+        refrescarDatos(); 
 
-        getLaptops()
+        getLaptops()  // Guardar todos los datos originales al cargar el componente
             .then((respuesta) => {
                 if (respuesta.status === 200) {
                     setTodosLosDatos(respuesta.data);
@@ -35,8 +30,8 @@ export default function AbmLaptops() {
             .catch((reason) => setError(reason.message));
     }, []);
 
-    function refrescarDatos() {
-        getLaptops()
+    function refrescarDatos() {   //aca hago el filtrado de laptops
+        getLaptops()   
             .then((respuesta) => {
                 if (respuesta.status === 200) {
                     // Aplicar filtro a los datos
@@ -81,7 +76,7 @@ export default function AbmLaptops() {
 
     function limpiarFiltro() {
         setFiltro("");
-        setDatos(todosLosDatos); // Mostrar todos los datos al limpiar
+        setDatos(todosLosDatos); // Muestro todos los datos al limpiar
     }
     return (
         <>
@@ -89,7 +84,7 @@ export default function AbmLaptops() {
             <div id='conta'>
                 <h1 className="text-white text-center">Laptops</h1><br />
                 <div class="mb-1 d-grid gap-2 col-6 mx-auto">
-                    <input 
+                    <input
                         id="place-holder"
                         className="d-grid gap-2 col-6 mx-auto"
                         type="text"
@@ -97,7 +92,7 @@ export default function AbmLaptops() {
                         value={filtro}
                         onChange={(e) => setFiltro(e.target.value)}
                     />
-                    <button className="btn btn-primary d-grid gap-2 col-6 mx-auto" id='btn-buscar'  onClick={buscar}>
+                    <button className="btn btn-primary d-grid gap-2 col-6 mx-auto" id='btn-buscar' onClick={buscar}>
                         Buscar
                     </button>
                     <button className="btn btn-secondary d-grid gap-2 col-6 mx-auto" id='btn-limpiar' onClick={limpiarFiltro}>

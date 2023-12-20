@@ -15,7 +15,7 @@ import NotFound from './componentes/not-found.jsx'
 
 
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById('root')).render(  //configuro las rutas de mi app
   <BrowserRouter>
     <Routes>
       <Route path='/' element={<App />}>

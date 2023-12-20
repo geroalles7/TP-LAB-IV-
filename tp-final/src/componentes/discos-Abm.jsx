@@ -1,20 +1,20 @@
 import { useLocation, useNavigate} from "react-router-dom";
 import { useEffect, useState } from "react";
 import { get_Discos } from "./laptop-Service";
-//import { Link } from "react-router-dom";
+
 
 
 export default function AbmDiscos() {
-    const [datos, setDatos] =useState([]);
+    const [datos, setDatos] = useState([]);  //para actualizar el estado
     const[error, setError]= useState(null);
     const navigate=useNavigate(); //para ir con un boton a otra pagina
     const location=useLocation();
     
     
-    useEffect(()=>{
+    useEffect(()=>{   // le estamos indicando a React que el componente tiene que hacer algo después de renderizarse
         refrescarDatos();
          
-     },[]); //se ejecuta una sola vez al principio
+     },[]); 
  
 
     function refrescarDatos(){
@@ -32,10 +32,7 @@ export default function AbmDiscos() {
     }
    
    
-    function verInfo(id){
-        navigate(`ver/${id}`);
-
-    }
+    
 
     
     return (
@@ -44,7 +41,7 @@ export default function AbmDiscos() {
                 <h1 className="text-white">Discos</h1>
             </div>
             
-            {error ? <h1>Error: {error}</h1> : null /*aca trato el error*/} 
+            {error ? <h1>Error: {error}</h1> : null} 
             <div className="container">
                 <table class="table table-dark">
                     <thead> 
@@ -54,7 +51,7 @@ export default function AbmDiscos() {
                     </thead>
                     <tbody>
 
-                        {datos.map((t) => (   //por cada elemento crea una linea en la lista. Esto va en el id de abajo  //dibujo la tabla que traigo desde autos-service
+                        {datos.map((t) => (   //por cada elemento crea una linea en la lista. Esto va en el id de abajo  //dibujo la tabla que traigo desde laptops-service
                             <tr key={t.id}>   
                                 <td>{t.id} </td> 
                                 <td>{t.marca}</td>

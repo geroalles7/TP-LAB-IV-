@@ -1,6 +1,5 @@
 
 import { Outlet, NavLink, Link } from "react-router-dom"
-//import 'bootstrap/dist/css/bootstrap.css'
 import './style.css'
 
 
@@ -17,7 +16,7 @@ function App() {
             <NavLink to="/" id="nav-link"><h2>LAPTOPS GAMERS</h2></NavLink>
           </div>
           <nav>
-            <NavLink to='datos' id="nav-link">Datos</NavLink>
+            <NavLink to='datos' id="nav-link">Productos</NavLink>
             <NavLink to='about' id="nav-link">Acerca de</NavLink>
           </nav>
 

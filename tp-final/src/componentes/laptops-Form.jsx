@@ -8,8 +8,8 @@ import '../style.css'
 
 export default function LaptopsForm() {
 
-    const params = useParams();
-    const estadoInicial = { id: -1, marca: '', modelo: '', ram: null, id_disco: null, placa: '', precio: null };
+    const params = useParams(); //nos permite acceder desde un componente a los parámetros de la ruta.
+    const estadoInicial = { id: -1, marca: '', modelo: '', ram: 0, id_disco: null, placa: '', precio: 0};
     const [laptop, setLaptop] = useState(estadoInicial);
     const [error, setError] = useState()
     const [discos, setDiscos] = useState([]);
@@ -51,49 +51,38 @@ export default function LaptopsForm() {
 
 
     }
-    function validarCamposEditar() {
-        // Verificar que todos los campos estén completos
-        if (laptop.marca === '' ||laptop.modelo==='' ||  laptop.ram==''|| laptop.id_disco==null || laptop.placa==='' || laptop.precio==0) {
-           
+    
+
+    function validarCampos() {
+        console.log(laptop.id_disco);
+        if (laptop.marca === '' || laptop.modelo === '' || laptop.ram == 0  || laptop.id_disco == null ||laptop.id_disco == -1 ||laptop.placa === '' || laptop.precio == 0) {
+
             alert('Por favor, complete todos los campos.');
             return false;
         }
 
-        // Puedes agregar más validaciones según tus necesidades
-      
+
+
         return true;
     }
 
-    function validarCamposAgregar() {
-        // Verificar que todos los campos estén completos
-        if (laptop.marca === '' ||laptop.modelo==='' ||  laptop.ram==null|| laptop.id_disco==null || laptop.placa==='' || laptop.precio==0) {
-           
-            alert('Por favor, complete todos los campos.');
-            return false;
-        }
+    async function aceptarCambios() {   //se fija se agrega una laptop o si edita
 
-        // Puedes agregar más validaciones según tus necesidades
-      
-        return true;
-    }
 
-    async function aceptarCambios() {
-
-        
         if (laptop.id === -1) {
             try {
-                
-               
-                if (!validarCamposAgregar()) { // Validar todos los campos
+
+
+                if (!validarCampos()) { 
                     return;
                 }
 
                 if (laptop.id === -1) {
                     await agregarLaptop(laptop);
-                    
-                } 
 
-                
+                }
+
+
             } catch (ex) {
                 setError(ex);
             }
@@ -101,18 +90,18 @@ export default function LaptopsForm() {
         }
         else {
             try {
-                if (!validarCamposEditar()) {
+                if (!validarCampos()) {   
                     return;
                 }
-            
+
                 try {
                     await editar(laptop);
                     alert("Laptop editada con exito");
                 } catch (ex) {
                     setError(ex);
                 }
-                
-                
+
+
             }
             catch (ex) {
                 setError(ex);
@@ -123,7 +112,7 @@ export default function LaptopsForm() {
 
         navigate(-1); //vuelvo a donde esta la lista 
     }
-    
+
     function cancelarCambios() {
         navigate(-1);
     }
@@ -151,23 +140,24 @@ export default function LaptopsForm() {
                 </div>
 
                 <div className="mb-3">
-                    <label className="form-label text-white" htmlFor="ram">Ram (Gb)</label>
+                    <label className="form-label text-white" htmlFor="ram">Ram (Gb)</label><option value={0}> </option>
                     <input className="form-control" type="number" id="ram" value={laptop.ram}
                         onChange={handleEditChange} ></input>
                 </div>
                 <div className="mb-3">
                     <Form>
                         <Form.Group controlId="exampleForm.SelectCustom">
-                            <Form.Label  className="form-label text-white">Selecciona una opción de disco:</Form.Label>
+                            <Form.Label className="form-label text-white">Selecciona una opción de disco:</Form.Label>
                             <Form.Select custom onChange={handleEditChange} id="id_disco">
                                 <option value={-1}> </option>
                                 {discos.map((disco) => (
                                     <option key={disco.id} value={disco.id}>
                                         Capacidad: {disco.tamaño} GB, Marca: {disco.marca},
                                         Tipo: {disco.tipo}
-
+                                        
                                     </option>
                                 ))}
+                                
                             </Form.Select>
                         </Form.Group>
                     </Form>
@@ -179,7 +169,7 @@ export default function LaptopsForm() {
                         onChange={handleEditChange} ></input>
                 </div>
                 <div className="mb-3">
-                    <label className="form-label text-white" htmlFor="precio">Precio</label>
+                    <label className="form-label text-white" htmlFor="precio">Precio</label><option value={0}> </option>
                     <input className="form-control" type="number" id="precio" value={laptop.precio}
                         onChange={handleEditChange} ></input>
                 </div>
@@ -194,7 +184,7 @@ export default function LaptopsForm() {
 
 
         </>
-        
+
 
     )
 }
